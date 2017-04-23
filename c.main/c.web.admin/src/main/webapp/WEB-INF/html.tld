@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>oyes 1.0 XML library</description>
+	<display-name>html tld</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>ajax</short-name>
+	<uri>http://www.oyes.com/html</uri>
+    
+ 	<tag>
+		<description>date format tag</description>
+		<name>dateformat</name>
+		<tag-class>com.common.taglib.DateFormatTaglib</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>time</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>pattern</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>times</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>		
+	</tag>
+	
+	<tag>
+		<description>currency format tag</description>
+		<name>currencyformat</name>
+		<tag-class>com.common.taglib.CurrencyFormatTaglib</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>price</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+</taglib>

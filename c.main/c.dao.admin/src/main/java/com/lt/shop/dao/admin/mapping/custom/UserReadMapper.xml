@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.custom.UserReadMapper">
+	<resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.User">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="upwd" jdbcType="VARCHAR" property="upwd" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="tname" jdbcType="VARCHAR" property="tname" />
+		<result column="mobileconfrim" jdbcType="INTEGER" property="mobileconfrim" />
+		<result column="emailconfrim" jdbcType="INTEGER" property="emailconfrim" />
+		<result column="imghead" jdbcType="VARCHAR" property="imghead" />
+		<result column="nickname" jdbcType="VARCHAR" property="nickname" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="birth" jdbcType="DATE" property="birth" />
+		<result column="mysign" jdbcType="VARCHAR" property="mysign" />
+		<result column="flag" jdbcType="INTEGER" property="flag" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="district" jdbcType="VARCHAR" property="district" />
+		<result column="addr" jdbcType="VARCHAR" property="addr" />
+		<result column="idcard" jdbcType="VARCHAR" property="idcard" />
+		<result column="frontimg" jdbcType="VARCHAR" property="frontimg" />
+		<result column="reversedimg" jdbcType="VARCHAR" property="reversedimg" />
+		<result column="handimg" jdbcType="VARCHAR" property="handimg" />
+		<result column="regtime" jdbcType="BIGINT" property="regtime" />
+		<result column="openid" jdbcType="VARCHAR" property="openid" />
+	</resultMap>
+
+
+	<select id="getByUname" resultMap="BaseResultMap">
+		select
+		u.*
+from lt_user u RIGHT JOIN lt_shop s on u.id=s.user_id
+ where u.uname=#{uname}
+	</select>
+
+
+
+
+</mapper>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.def.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="运费" jdbcType="DECIMAL" property="运费" />
+    <result column="收货姓名" jdbcType="VARCHAR" property="收货姓名" />
+    <result column="收货手机号" jdbcType="VARCHAR" property="收货手机号" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="add_time" jdbcType="BIGINT" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_sn, user_id, amount, 运费, 收货姓名, 收货手机号, province, city, district, address, 
+    add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lt_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lt_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+    insert into lt_order (id, order_sn, user_id, 
+      amount, 运费, 收货姓名, 收货手机号, 
+      province, city, district, 
+      address, add_time)
+    values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{amount,jdbcType=DECIMAL}, #{运费,jdbcType=DECIMAL}, #{收货姓名,jdbcType=VARCHAR}, #{收货手机号,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{addTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+    insert into lt_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderSn != null">
+        order_sn,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="运费 != null">
+        运费,
+      </if>
+      <if test="收货姓名 != null">
+        收货姓名,
+      </if>
+      <if test="收货手机号 != null">
+        收货手机号,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="运费 != null">
+        #{运费,jdbcType=DECIMAL},
+      </if>
+      <if test="收货姓名 != null">
+        #{收货姓名,jdbcType=VARCHAR},
+      </if>
+      <if test="收货手机号 != null">
+        #{收货手机号,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+    update lt_order
+    <set>
+      <if test="orderSn != null">
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="运费 != null">
+        运费 = #{运费,jdbcType=DECIMAL},
+      </if>
+      <if test="收货姓名 != null">
+        收货姓名 = #{收货姓名,jdbcType=VARCHAR},
+      </if>
+      <if test="收货手机号 != null">
+        收货手机号 = #{收货手机号,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+    update lt_order
+    set order_sn = #{orderSn,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      amount = #{amount,jdbcType=DECIMAL},
+      运费 = #{运费,jdbcType=DECIMAL},
+      收货姓名 = #{收货姓名,jdbcType=VARCHAR},
+      收货手机号 = #{收货手机号,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

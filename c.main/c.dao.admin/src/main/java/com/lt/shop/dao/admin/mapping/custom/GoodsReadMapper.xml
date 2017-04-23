@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.custom.GoodsReadMapper">
+  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.Goods">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="title_short" jdbcType="VARCHAR" property="titleShort" />
+    <result column="cid" jdbcType="BIGINT" property="cid" />
+    <result column="price_market" jdbcType="DECIMAL" property="priceMarket" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="price_cost" jdbcType="DECIMAL" property="priceCost" />
+    <result column="freight" jdbcType="DECIMAL" property="freight" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="def_img" jdbcType="VARCHAR" property="defImg" />
+    <result column="ablums" jdbcType="VARCHAR" property="ablums" />
+    <result column="note" jdbcType="VARCHAR" property="note" typeHandler="com.common.dao.MyBlobTypeHandler" />
+    <result column="buy_total" jdbcType="INTEGER" property="buyTotal" />
+    <result column="add_time" jdbcType="BIGINT" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, shop_id, user_id, title, title_short, cid, price_market, price, price_cost, freight, 
+    unit, weight, status, def_img, buy_total, add_time
+  </sql>
+  
+  <select id="list" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	from lt_goods
+  	where shop_id=#{shopId}
+  	<if test="params.w != null and params.w!=''">
+		and title like concat('%', #{params.w},'%')
+	</if>
+  	order by add_time desc 
+	LIMIT #{start},#{num}
+  
+  </select>
+  <select id="listTotal" resultType="java.lang.Integer">
+  	select 
+  	count(0)
+  	from lt_goods
+  	where shop_id=#{shopId}
+  	<if test="params.w != null and params.w!=''">
+		and title like concat('%', #{params.w},'%')
+	</if>
+  </select>
+  
+
+  
+
+</mapper>

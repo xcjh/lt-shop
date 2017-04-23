@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.def.UserMapper">
+  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="upwd" jdbcType="VARCHAR" property="upwd" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="mobileconfrim" jdbcType="INTEGER" property="mobileconfrim" />
+    <result column="emailconfrim" jdbcType="INTEGER" property="emailconfrim" />
+    <result column="imghead" jdbcType="VARCHAR" property="imghead" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="birth" jdbcType="DATE" property="birth" />
+    <result column="mysign" jdbcType="VARCHAR" property="mysign" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="addr" jdbcType="VARCHAR" property="addr" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="frontimg" jdbcType="VARCHAR" property="frontimg" />
+    <result column="reversedimg" jdbcType="VARCHAR" property="reversedimg" />
+    <result column="handimg" jdbcType="VARCHAR" property="handimg" />
+    <result column="regtime" jdbcType="BIGINT" property="regtime" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uname, mobile, upwd, email, tname, mobileconfrim, emailconfrim, imghead, nickname, 
+    sex, birth, mysign, flag, province, city, district, addr, idcard, frontimg, reversedimg, 
+    handimg, regtime, openid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lt_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lt_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.lt.shop.dao.admin.entity.def.User">
+    insert into lt_user (id, uname, mobile, 
+      upwd, email, tname, 
+      mobileconfrim, emailconfrim, imghead, 
+      nickname, sex, birth, 
+      mysign, flag, province, 
+      city, district, addr, 
+      idcard, frontimg, reversedimg, 
+      handimg, regtime, openid
+      )
+    values (#{id,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{upwd,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR}, 
+      #{mobileconfrim,jdbcType=INTEGER}, #{emailconfrim,jdbcType=INTEGER}, #{imghead,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birth,jdbcType=DATE}, 
+      #{mysign,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{frontimg,jdbcType=VARCHAR}, #{reversedimg,jdbcType=VARCHAR}, 
+      #{handimg,jdbcType=VARCHAR}, #{regtime,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.lt.shop.dao.admin.entity.def.User">
+    insert into lt_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="upwd != null">
+        upwd,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="tname != null">
+        tname,
+      </if>
+      <if test="mobileconfrim != null">
+        mobileconfrim,
+      </if>
+      <if test="emailconfrim != null">
+        emailconfrim,
+      </if>
+      <if test="imghead != null">
+        imghead,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="mysign != null">
+        mysign,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="district != null">
+        district,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="frontimg != null">
+        frontimg,
+      </if>
+      <if test="reversedimg != null">
+        reversedimg,
+      </if>
+      <if test="handimg != null">
+        handimg,
+      </if>
+      <if test="regtime != null">
+        regtime,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="upwd != null">
+        #{upwd,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null">
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileconfrim != null">
+        #{mobileconfrim,jdbcType=INTEGER},
+      </if>
+      <if test="emailconfrim != null">
+        #{emailconfrim,jdbcType=INTEGER},
+      </if>
+      <if test="imghead != null">
+        #{imghead,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=DATE},
+      </if>
+      <if test="mysign != null">
+        #{mysign,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="frontimg != null">
+        #{frontimg,jdbcType=VARCHAR},
+      </if>
+      <if test="reversedimg != null">
+        #{reversedimg,jdbcType=VARCHAR},
+      </if>
+      <if test="handimg != null">
+        #{handimg,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null">
+        #{regtime,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.User">
+    update lt_user
+    <set>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="upwd != null">
+        upwd = #{upwd,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null">
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileconfrim != null">
+        mobileconfrim = #{mobileconfrim,jdbcType=INTEGER},
+      </if>
+      <if test="emailconfrim != null">
+        emailconfrim = #{emailconfrim,jdbcType=INTEGER},
+      </if>
+      <if test="imghead != null">
+        imghead = #{imghead,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=DATE},
+      </if>
+      <if test="mysign != null">
+        mysign = #{mysign,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null">
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="frontimg != null">
+        frontimg = #{frontimg,jdbcType=VARCHAR},
+      </if>
+      <if test="reversedimg != null">
+        reversedimg = #{reversedimg,jdbcType=VARCHAR},
+      </if>
+      <if test="handimg != null">
+        handimg = #{handimg,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null">
+        regtime = #{regtime,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.User">
+    update lt_user
+    set uname = #{uname,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      upwd = #{upwd,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      tname = #{tname,jdbcType=VARCHAR},
+      mobileconfrim = #{mobileconfrim,jdbcType=INTEGER},
+      emailconfrim = #{emailconfrim,jdbcType=INTEGER},
+      imghead = #{imghead,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birth = #{birth,jdbcType=DATE},
+      mysign = #{mysign,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      frontimg = #{frontimg,jdbcType=VARCHAR},
+      reversedimg = #{reversedimg,jdbcType=VARCHAR},
+      handimg = #{handimg,jdbcType=VARCHAR},
+      regtime = #{regtime,jdbcType=BIGINT},
+      openid = #{openid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

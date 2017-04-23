@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans     
+          http://www.springframework.org/schema/beans/spring-beans.xsd     
+          http://www.springframework.org/schema/tx     
+          http://www.springframework.org/schema/tx/spring-tx.xsd    
+          http://www.springframework.org/schema/context     
+          http://www.springframework.org/schema/context/spring-context.xsd     
+          http://www.springframework.org/schema/aop     
+          http://www.springframework.org/schema/aop/spring-aop.xsd
+          http://www.springframework.org/schema/mvc
+		  http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 启动注解功能 -->
+	<mvc:annotation-driven />
+
+	<!-- 静态资源访问 -->  
+   <mvc:default-servlet-handler/>  
+
+
+	<!-- 自动扫描bean、把作了注解的类转化成bean -->
+	<context:component-scan base-package="com.lt.shop.controller" />
+	<context:component-scan base-package="com.lt.shop.controller" />
+	<context:component-scan base-package="com.lt.shop.service" />
+	<context:component-scan base-package="com.common.controller" />
+	<context:component-scan base-package="com.common.service" />
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+	<!-- 对模型视图名称的解析，将ModelAndView及字符串解析为具体的页面 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/default/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+
+	<!-- 错误路径和错误页面，注意指定viewResolver -->
+	<mvc:view-controller path="/404" view-name="404" />
+	<mvc:view-controller path="/500" view-name="404" />
+	<mvc:view-controller path="/uncaughtException"
+		view-name="404" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/admin/login" />
+			<mvc:exclude-mapping path="/admin/loginp" />
+			<bean class="com.lt.shop.interceptor.AdminInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 指定所上传文件的总大小不能超过10M（ 1024*200即200k ）。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="10485760"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常 -->
+		<property name="resolveLazily" value="true" />
+	</bean>
+
+</beans>
