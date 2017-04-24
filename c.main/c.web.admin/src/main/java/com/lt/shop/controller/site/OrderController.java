@@ -18,8 +18,6 @@ import com.lt.shop.service.site.SiteCartService;
  * @author xiaoli
  *
  */
-@Controller
-@Scope("prototype")
 public class OrderController extends SiteController {
 	
 	@Autowired
