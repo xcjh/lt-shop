@@ -63,7 +63,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="org" data-title="用户列表" >用户列表</a></li>
+					<li><a _href="u/l" data-title="用户列表" >用户列表</a></li>
 				</ul>
 			</dd>
 		</dl>

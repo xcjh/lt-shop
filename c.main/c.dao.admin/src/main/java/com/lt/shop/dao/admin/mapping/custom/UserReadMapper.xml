@@ -32,10 +32,30 @@
 	<select id="getByUname" resultMap="BaseResultMap">
 		select
 		u.*
-from lt_user u RIGHT JOIN lt_shop s on u.id=s.user_id
- where u.uname=#{uname}
+		from lt_user u RIGHT JOIN lt_shop s on u.id=s.user_id
+		where u.uname=#{uname}
 	</select>
 
+
+	<select id="list" resultMap="BaseResultMap">
+		select
+		*
+		from lt_user
+		<if test="params.w != null and params.w!=''">
+			where uname like concat('%', #{params.w},'%')
+		</if>
+		order by regtime desc
+		LIMIT #{start},#{num}
+
+	</select>
+	<select id="listTotal" resultType="java.lang.Integer">
+		select
+		count(0)
+		from lt_user
+		<if test="params.w != null and params.w!=''">
+			where uname like concat('%', #{params.w},'%')
+		</if>
+	</select>
 
 
 
