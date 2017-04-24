@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.def.CodeCityMapper">
+  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.CodeCity">
+    <id column="CityID" jdbcType="BIGINT" property="cityid" />
+    <result column="CityName" jdbcType="VARCHAR" property="cityname" />
+    <result column="ZipCode" jdbcType="VARCHAR" property="zipcode" />
+    <result column="ProvinceID" jdbcType="BIGINT" property="provinceid" />
+    <result column="DateCreated" jdbcType="TIMESTAMP" property="datecreated" />
+    <result column="DateUpdated" jdbcType="TIMESTAMP" property="dateupdated" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CityID, CityName, ZipCode, ProvinceID, DateCreated, DateUpdated
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_city
+    where CityID = #{cityid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_city
+    where CityID = #{cityid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.CodeCity">
+    insert into s_city (CityID, CityName, ZipCode, 
+      ProvinceID, DateCreated, DateUpdated
+      )
+    values (#{cityid,jdbcType=BIGINT}, #{cityname,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, 
+      #{provinceid,jdbcType=BIGINT}, #{datecreated,jdbcType=TIMESTAMP}, #{dateupdated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.CodeCity">
+    insert into s_city
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cityid != null">
+        CityID,
+      </if>
+      <if test="cityname != null">
+        CityName,
+      </if>
+      <if test="zipcode != null">
+        ZipCode,
+      </if>
+      <if test="provinceid != null">
+        ProvinceID,
+      </if>
+      <if test="datecreated != null">
+        DateCreated,
+      </if>
+      <if test="dateupdated != null">
+        DateUpdated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cityid != null">
+        #{cityid,jdbcType=BIGINT},
+      </if>
+      <if test="cityname != null">
+        #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceid != null">
+        #{provinceid,jdbcType=BIGINT},
+      </if>
+      <if test="datecreated != null">
+        #{datecreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateupdated != null">
+        #{dateupdated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.CodeCity">
+    update s_city
+    <set>
+      <if test="cityname != null">
+        CityName = #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        ZipCode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceid != null">
+        ProvinceID = #{provinceid,jdbcType=BIGINT},
+      </if>
+      <if test="datecreated != null">
+        DateCreated = #{datecreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateupdated != null">
+        DateUpdated = #{dateupdated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CityID = #{cityid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.CodeCity">
+    update s_city
+    set CityName = #{cityname,jdbcType=VARCHAR},
+      ZipCode = #{zipcode,jdbcType=VARCHAR},
+      ProvinceID = #{provinceid,jdbcType=BIGINT},
+      DateCreated = #{datecreated,jdbcType=TIMESTAMP},
+      DateUpdated = #{dateupdated,jdbcType=TIMESTAMP}
+    where CityID = #{cityid,jdbcType=BIGINT}
+  </update>
+</mapper>
