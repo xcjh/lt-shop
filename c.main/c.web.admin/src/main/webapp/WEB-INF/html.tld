@@ -45,4 +45,21 @@
 		</attribute>
 	</tag>
 	
+	<tag>
+		<description>order status tag</description>
+		<name>os</name>
+		<tag-class>com.common.taglib.OrderStatusTaglib</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>filed</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>val</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
 </taglib>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.common.Constant;
 import com.common.utils.AESUtils;
 import com.common.utils.HttpUtils;
 import com.common.utils.StringUtils;
@@ -95,7 +96,7 @@ public class LoginController extends AdminController {
 	 */
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public ModelAndView logout(){
-		contextService.deleteKey(contextService.getSessionId());
+		contextService.deleteKey(Constant.ADMIN_LOGIN_USER);
 		return new ModelAndView("redirect:login");
 	}
 

@@ -1,15 +1,21 @@
 package com.lt.shop.controller.admin;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.Constant;
 import com.common.utils.StringUtils;
+import com.common.valid.ReqUserEditPwd;
 import com.common.valid.ReqUserSearch;
+import com.lt.shop.dao.admin.entity.def.User;
 import com.lt.shop.service.admin.UserService;
 
 /*
@@ -59,6 +65,37 @@ public class UserController extends AdminController {
 			return resp(2,"新状态不正确");
 		}
 		return resp(userService.modfiyStatus(id, status));
+	}
+	
+	/**
+	 * 登录用户修改自己的密码
+	 * @return
+	 */
+	@RequestMapping(value="/u/editpwd",method=RequestMethod.GET)
+	public String editpwd(){
+		User user = (User)contextService.getObject(Constant.ADMIN_LOGIN_USER);
+		request.setAttribute("user", user);
+		return THEME + "/user/editpwd"; 
+	}
+	
+	/**
+	 * 保存密码修改
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/u/editpwds",method = RequestMethod.POST,produces = "text/json;charset=UTF-8")
+	public String editpwds(@Valid ReqUserEditPwd req,BindingResult result){
+		if(result.hasErrors()){
+			return resp(2,getMsg(result));
+		}
+		if(!req.getUpwd().equals(req.getUpwd2())){
+			return resp(2,"两次密码不一致");
+		}
+		int flag = userService.editPwd(req);
+		if(flag!=1){
+			return resp(2,"修改密码失败");
+		}
+		return resp(1);
 	}
 
 }

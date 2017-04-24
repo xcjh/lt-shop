@@ -33,15 +33,14 @@
 			</nav>
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li><a href="index">返回主页</a></li>
-					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">${user.uname} <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<li class="dropDown dropDown_hover" > <a href="#" class="dropDown_A">${user.uname} <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="show('我的信息','user/my');">我的信息</a></li>
-							<li><a href="javascript:;" onclick="show('修改密码','user/editpwd',650,370);">修改密码</a></li>
+							<li><a href="javascript:;" onclick="show('修改密码','u/editpwd',650,370);">修改密码</a></li>
 							<li><a href="logout">退出</a></li>
 						</ul>
 					</li>
-					<li id="Hui-msg" > <a href="javascript:;" onclick="show('维护邮箱','missemail');" title="维护邮箱"><span id="msgs-total" class="badge badge-danger">0</span><i class="Hui-iconfont" style="font-size:18px">&#xe6c5;</i></a> </li>
+					<li><a href="/">首页</a></li>
+					<li id="Hui-msg" style="display:none"> <a href="javascript:;" onclick="show('维护邮箱','missemail');" title="维护邮箱"><span id="msgs-total" class="badge badge-danger">0</span><i class="Hui-iconfont" style="font-size:18px">&#xe6c5;</i></a> </li>
 				</ul>
 			</nav>
 		</div>
@@ -56,6 +55,14 @@
 				<ul>
 					<li><a _href="g/l" data-title="商品列表" >商品列表</a></li>
 					<li><a _href="g/a" data-title="商品添加" >商品添加</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe687;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a _href="o/l" data-title="订单列表" >订单列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -87,33 +94,7 @@
 	</div>
 </section>
 <jsp:include page="inc_footer.jsp"></jsp:include>
-<script type="text/javascript" src="${ctx}/s/js/sockjs-0.3.min.js"></script>
-<script type="text/javascript">
-	var websocket;
-	if ('WebSocket' in window) {
-		websocket = new WebSocket("ws://localhost:8080/c.web.admin/webSocketServer");
-	} else if ('MozWebSocket' in window) {
-		websocket = new MozWebSocket("ws://localhost:8080/c.web.admin/webSocketServer");
-	} else {
-		websocket = new SockJS("http://localhost:8080/c.web.admin/sockjs/webSocketServer");
-	}
-	websocket.onopen = function(evnt) {
-		//alert("..in onopen"+JSON.stringify(evnt));
-	};
-	websocket.onmessage = function(evnt) {
-		var obj = evnt.data;
-		if (typeof obj === 'string') {
-			 obj = JSON.parse(obj);
-		}
-		$("#msgs-total").html(obj.total);
-	};
-	websocket.onerror = function(evnt) {
-		//alert("..in onerror-"+JSON.stringify(evnt));
-	};
-	websocket.onclose = function(evnt) {
-		//alert("..in onclose"+JSON.stringify(evnt));
-	}
-</script>
+
 <script type="text/javascript">
 function show(title,url,w,h){
 	layer_show(title,url,w,h);

@@ -9,14 +9,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import lombok.Data;
 
 /**
- * 用户搜索条件
+ * 订单搜索条件
  * @author xiaoli
  *
  */
 @Data
-public class ReqUserSearch implements Serializable {
+public class ReqOrderSearch implements Serializable {
 	
-	private static final long serialVersionUID = -8588368599611942701L;
+	private static final long serialVersionUID = -4938841252569672532L;
 	private String w;//关键字
 	
 	

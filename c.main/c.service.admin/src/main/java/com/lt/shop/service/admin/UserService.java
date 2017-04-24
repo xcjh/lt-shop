@@ -10,10 +10,12 @@ import com.common.Constant;
 import com.common.service.BaseService;
 import com.common.utils.MD5;
 import com.common.utils.Pager;
+import com.common.valid.ReqUserEditPwd;
 import com.common.valid.ReqUserSearch;
 import com.lt.shop.dao.admin.entity.def.User;
 import com.lt.shop.dao.admin.impl.custom.UserReadMapper;
 import com.lt.shop.dao.admin.impl.custom.UserWriteMapper;
+import com.lt.shop.dao.admin.impl.def.UserMapper;
 
 /**
  * 管理后台用户管理service
@@ -28,6 +30,9 @@ public class UserService extends BaseService {
 	
 	@Autowired
 	UserWriteMapper userWriteMapper;
+	
+	@Autowired
+	UserMapper userMapper;
 	
 	/**
 	 * 用户登录
@@ -65,6 +70,18 @@ public class UserService extends BaseService {
 	 */
 	public int modfiyStatus(Long id,Integer status){
 		return userWriteMapper.modfiyStatus(id, status);
+	}
+	
+	/**
+	 * 用户修改密码
+	 * @param req
+	 * @return
+	 */
+	public int editPwd(ReqUserEditPwd req){
+		User user = userMapper.selectByPrimaryKey(req.getId());
+		user.setUpwd(MD5.md5(req.getUpwd()));
+		int result = userMapper.updateByPrimaryKey(user);
+		return result;
 	}
 	
 

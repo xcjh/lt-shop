@@ -7,6 +7,12 @@ public class Order {
 
     private String orderSn;
 
+    private Integer orderStatus;
+
+    private Integer payStatus;
+
+    private String deliverStatus;
+
     private Long userId;
 
     private BigDecimal amount;
@@ -27,6 +33,8 @@ public class Order {
 
     private Long addTime;
 
+    private BigDecimal amountRefund;
+
     public Long getId() {
         return id;
     }
@@ -41,6 +49,30 @@ public class Order {
 
     public void setOrderSn(String orderSn) {
         this.orderSn = orderSn == null ? null : orderSn.trim();
+    }
+
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public Integer getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(Integer payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public String getDeliverStatus() {
+        return deliverStatus;
+    }
+
+    public void setDeliverStatus(String deliverStatus) {
+        this.deliverStatus = deliverStatus == null ? null : deliverStatus.trim();
     }
 
     public Long getUserId() {
@@ -121,5 +153,13 @@ public class Order {
 
     public void setAddTime(Long addTime) {
         this.addTime = addTime;
+    }
+
+    public BigDecimal getAmountRefund() {
+        return amountRefund;
+    }
+
+    public void setAmountRefund(BigDecimal amountRefund) {
+        this.amountRefund = amountRefund;
     }
 }

@@ -4,6 +4,9 @@
   <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.Order">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="deliver_status" jdbcType="CHAR" property="deliverStatus" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="freight" jdbcType="DECIMAL" property="freight" />
@@ -14,10 +17,11 @@
     <result column="district" jdbcType="VARCHAR" property="district" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="add_time" jdbcType="BIGINT" property="addTime" />
+    <result column="amount_refund" jdbcType="DECIMAL" property="amountRefund" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, order_sn, user_id, amount, freight, receipt_name, receipt_phone, province, city, 
-    district, address, add_time
+    id, order_sn, order_status, pay_status, deliver_status, user_id, amount, freight, 
+    receipt_name, receipt_phone, province, city, district, address, add_time, amount_refund
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -29,19 +33,21 @@
     delete from lt_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.Order">
-    insert into lt_order (id, order_sn, user_id, 
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+    insert into lt_order (id, order_sn, order_status, 
+      pay_status, deliver_status, user_id, 
       amount, freight, receipt_name, 
       receipt_phone, province, city, 
-      district, address, add_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      district, address, add_time, 
+      amount_refund)
+    values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, 
+      #{payStatus,jdbcType=INTEGER}, #{deliverStatus,jdbcType=CHAR}, #{userId,jdbcType=BIGINT}, 
       #{amount,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, #{receiptName,jdbcType=VARCHAR}, 
       #{receiptPhone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{addTime,jdbcType=BIGINT}
-      )
+      #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{addTime,jdbcType=BIGINT}, 
+      #{amountRefund,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.lt.shop.dao.admin.entity.def.Order">
     insert into lt_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -49,6 +55,15 @@
       </if>
       <if test="orderSn != null">
         order_sn,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="deliverStatus != null">
+        deliver_status,
       </if>
       <if test="userId != null">
         user_id,
@@ -80,6 +95,9 @@
       <if test="addTime != null">
         add_time,
       </if>
+      <if test="amountRefund != null">
+        amount_refund,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,6 +105,15 @@
       </if>
       <if test="orderSn != null">
         #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deliverStatus != null">
+        #{deliverStatus,jdbcType=CHAR},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
@@ -118,6 +145,9 @@
       <if test="addTime != null">
         #{addTime,jdbcType=BIGINT},
       </if>
+      <if test="amountRefund != null">
+        #{amountRefund,jdbcType=DECIMAL},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
@@ -125,6 +155,15 @@
     <set>
       <if test="orderSn != null">
         order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deliverStatus != null">
+        deliver_status = #{deliverStatus,jdbcType=CHAR},
       </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
@@ -156,12 +195,18 @@
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=BIGINT},
       </if>
+      <if test="amountRefund != null">
+        amount_refund = #{amountRefund,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.Order">
     update lt_order
     set order_sn = #{orderSn,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      deliver_status = #{deliverStatus,jdbcType=CHAR},
       user_id = #{userId,jdbcType=BIGINT},
       amount = #{amount,jdbcType=DECIMAL},
       freight = #{freight,jdbcType=DECIMAL},
@@ -171,7 +216,8 @@
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=BIGINT}
+      add_time = #{addTime,jdbcType=BIGINT},
+      amount_refund = #{amountRefund,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
