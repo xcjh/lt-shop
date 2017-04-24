@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.Constant;
 import com.common.utils.GsonUtils;
 import com.lt.shop.service.site.SiteCartService;
+import com.lt.shop.service.site.SiteOrderService;
 
 /**
  * 购物车列表
@@ -22,6 +23,9 @@ public class OrderController extends SiteController {
 	
 	@Autowired
 	SiteCartService siteCartService;
+	
+	@Autowired
+	SiteOrderService siteOrderService;
 	
 	/**
 	 * 购物车清单页
