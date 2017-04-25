@@ -53,7 +53,7 @@
 			<c:forEach items="${pager.datas }" var="item">
 			
 			<tr class="text-c">
-				<td>${item.title }</td>
+				<td><a href="/d/${item.id }" target="_blank">${item.title }</a></td>
 				<td>
 					<c:if test="${item.status==0 }">新品</c:if>
 					<c:if test="${item.status==1 }">上架</c:if>

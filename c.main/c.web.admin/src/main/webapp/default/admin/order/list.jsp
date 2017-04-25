@@ -39,10 +39,13 @@
 	<table class="table table-border table-bordered table-bg table-hover table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="20%">订单编号</th>
-				<th width="10%">订单状态</th>
-				<th width="10%">支付状态</th>
-				<th width="10%">发货状态</th>
+				<th width="10%">订单编号</th>
+				<th width="10%">订单金额</th>
+				<th width="8%">运费</th>
+				<th width="8%">订单状态</th>
+				<th width="8%">支付状态</th>
+				<th width="8%">发货状态</th>
+				<th width="12%">省/市/区</th>
 				<th width="8%">收货人</th>
 				<th width="8%">收货人手机</th>
 				<th width="14%">下单时间</th>
@@ -53,7 +56,11 @@
 			<c:forEach items="${pager.datas }" var="item">
 			
 			<tr class="text-c">
-				<td>${item.orderSn }</td>
+				<td>
+					<a href="d-${item.id }">${item.orderSn }</a> 
+				</td>
+				<td><html:currencyformat price="${item.amount }"></html:currencyformat> </td>
+				<td><html:currencyformat price="${item.freight }"></html:currencyformat> </td>
 				<td>
 					<html:os val="${item.orderStatus }" filed="order"></html:os>
 				</td>
@@ -63,6 +70,7 @@
 				<td>
 					<html:os val="${item.deliverStatus }" filed="deliver"></html:os>
 				</td>
+				<td>${item.province }/${item.city }/${item.district }</td>
 				<td>${item.receiptName } </td>
 				<td>${item.receiptPhone } </td>
 				<td>
