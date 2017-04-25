@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.def.UserAddrMapper">
+  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.UserAddr">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="district_id" jdbcType="INTEGER" property="districtId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="receipt_name" jdbcType="VARCHAR" property="receiptName" />
+    <result column="receipt_phone" jdbcType="VARCHAR" property="receiptPhone" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="default_used" jdbcType="INTEGER" property="defaultUsed" />
+  </resultMap>
+  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.UserAddr">
+    insert into lt_user_addr (id, user_id, province_id, 
+      city_id, district_id, address, 
+      receipt_name, receipt_phone, add_time, 
+      default_used)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
+      #{cityId,jdbcType=INTEGER}, #{districtId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{receiptName,jdbcType=VARCHAR}, #{receiptPhone,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{defaultUsed,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.UserAddr">
+    insert into lt_user_addr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="districtId != null">
+        district_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="receiptName != null">
+        receipt_name,
+      </if>
+      <if test="receiptPhone != null">
+        receipt_phone,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="defaultUsed != null">
+        default_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptName != null">
+        #{receiptName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPhone != null">
+        #{receiptPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="defaultUsed != null">
+        #{defaultUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
