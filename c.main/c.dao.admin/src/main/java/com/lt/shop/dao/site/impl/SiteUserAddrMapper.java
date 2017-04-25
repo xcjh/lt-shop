@@ -1,5 +1,6 @@
 package com.lt.shop.dao.site.impl;
 
+import com.lt.shop.dao.admin.entity.custom.UserAddrEntity;
 import com.lt.shop.dao.admin.entity.def.UserAddr;
 
 public interface SiteUserAddrMapper {
@@ -9,7 +10,7 @@ public interface SiteUserAddrMapper {
 
     int insertSelective(UserAddr record);
 
-    UserAddr selectByPrimaryKey(Long id);
+    UserAddrEntity selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(UserAddr record);
 

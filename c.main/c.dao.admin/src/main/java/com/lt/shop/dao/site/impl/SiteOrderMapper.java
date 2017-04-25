@@ -5,7 +5,7 @@ import com.lt.shop.dao.admin.entity.def.Order;
 public interface SiteOrderMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(Order record);
+    Long insert(Order record);
 
     int insertSelective(Order record);
 
@@ -14,4 +14,6 @@ public interface SiteOrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+    
+    int updateOrder(Order record);
 }

@@ -1,106 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lt.shop.dao.site.impl.SiteOrderLogMapper">
-  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.OrderLog">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="order_id" jdbcType="BIGINT" property="orderId" />
-    <result column="ltime" jdbcType="TIMESTAMP" property="ltime" />
-    <result column="ltype" jdbcType="INTEGER" property="ltype" />
-    <result column="lmemo" jdbcType="VARCHAR" property="lmemo" />
-    <result column="lremark" jdbcType="VARCHAR" property="lremark" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, order_id, ltime, ltype, lmemo, lremark
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from lt_order_log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from lt_order_log
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
-    insert into lt_order_log (id, order_id, ltime, 
-      ltype, lmemo, lremark
-      )
-    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{ltime,jdbcType=TIMESTAMP}, 
-      #{ltype,jdbcType=INTEGER}, #{lmemo,jdbcType=VARCHAR}, #{lremark,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
-    insert into lt_order_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="ltime != null">
-        ltime,
-      </if>
-      <if test="ltype != null">
-        ltype,
-      </if>
-      <if test="lmemo != null">
-        lmemo,
-      </if>
-      <if test="lremark != null">
-        lremark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=BIGINT},
-      </if>
-      <if test="ltime != null">
-        #{ltime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ltype != null">
-        #{ltype,jdbcType=INTEGER},
-      </if>
-      <if test="lmemo != null">
-        #{lmemo,jdbcType=VARCHAR},
-      </if>
-      <if test="lremark != null">
-        #{lremark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
-    update lt_order_log
-    <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=BIGINT},
-      </if>
-      <if test="ltime != null">
-        ltime = #{ltime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="ltype != null">
-        ltype = #{ltype,jdbcType=INTEGER},
-      </if>
-      <if test="lmemo != null">
-        lmemo = #{lmemo,jdbcType=VARCHAR},
-      </if>
-      <if test="lremark != null">
-        lremark = #{lremark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
-    update lt_order_log
-    set order_id = #{orderId,jdbcType=BIGINT},
-      ltime = #{ltime,jdbcType=TIMESTAMP},
-      ltype = #{ltype,jdbcType=INTEGER},
-      lmemo = #{lmemo,jdbcType=VARCHAR},
-      lremark = #{lremark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+	<resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.OrderLog">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="order_id" jdbcType="BIGINT" property="orderId" />
+		<result column="ltime" jdbcType="TIMESTAMP" property="ltime" />
+		<result column="ltype" jdbcType="INTEGER" property="ltype" />
+		<result column="lmemo" jdbcType="VARCHAR" property="lmemo" />
+		<result column="lremark" jdbcType="VARCHAR" property="lremark" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, order_id, ltime, ltype, lmemo, lremark
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from lt_order_log
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from lt_order_log
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into lt_order_log (order_id, ltime,
+		ltype, lmemo, lremark
+		)
+		values (#{orderId,jdbcType=BIGINT}, #{ltime,jdbcType=TIMESTAMP},
+		#{ltype,jdbcType=INTEGER},
+		#{lmemo,jdbcType=VARCHAR}, #{lremark,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
+		insert into lt_order_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="ltime != null">
+				ltime,
+			</if>
+			<if test="ltype != null">
+				ltype,
+			</if>
+			<if test="lmemo != null">
+				lmemo,
+			</if>
+			<if test="lremark != null">
+				lremark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=BIGINT},
+			</if>
+			<if test="ltime != null">
+				#{ltime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ltype != null">
+				#{ltype,jdbcType=INTEGER},
+			</if>
+			<if test="lmemo != null">
+				#{lmemo,jdbcType=VARCHAR},
+			</if>
+			<if test="lremark != null">
+				#{lremark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
+		update lt_order_log
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=BIGINT},
+			</if>
+			<if test="ltime != null">
+				ltime = #{ltime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ltype != null">
+				ltype = #{ltype,jdbcType=INTEGER},
+			</if>
+			<if test="lmemo != null">
+				lmemo = #{lmemo,jdbcType=VARCHAR},
+			</if>
+			<if test="lremark != null">
+				lremark = #{lremark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.OrderLog">
+		update lt_order_log
+		set order_id = #{orderId,jdbcType=BIGINT},
+		ltime = #{ltime,jdbcType=TIMESTAMP},
+		ltype =
+		#{ltype,jdbcType=INTEGER},
+		lmemo = #{lmemo,jdbcType=VARCHAR},
+		lremark = #{lremark,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 </mapper>
