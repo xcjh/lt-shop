@@ -1,9 +1,13 @@
 package com.lt.shop.dao.admin.entity.def;
 
+import java.math.BigDecimal;
+
 public class OrderItem {
     private Long id;
 
     private Long goodsId;
+
+    private BigDecimal price;
 
     private Integer num;
 
@@ -27,6 +31,14 @@ public class OrderItem {
 
     public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Integer getNum() {

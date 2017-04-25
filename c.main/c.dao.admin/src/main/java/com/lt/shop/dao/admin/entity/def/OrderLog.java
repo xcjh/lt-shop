@@ -3,31 +3,31 @@ package com.lt.shop.dao.admin.entity.def;
 import java.util.Date;
 
 public class OrderLog {
-    private Integer id;
+    private Long id;
 
-    private Integer orderId;
+    private Long orderId;
 
     private Date ltime;
 
-    private String ltype;
+    private Integer ltype;
 
     private String lmemo;
 
     private String lremark;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -39,12 +39,12 @@ public class OrderLog {
         this.ltime = ltime;
     }
 
-    public String getLtype() {
+    public Integer getLtype() {
         return ltype;
     }
 
-    public void setLtype(String ltype) {
-        this.ltype = ltype == null ? null : ltype.trim();
+    public void setLtype(Integer ltype) {
+        this.ltype = ltype;
     }
 
     public String getLmemo() {

@@ -12,8 +12,11 @@
     <result column="freight" jdbcType="DECIMAL" property="freight" />
     <result column="receipt_name" jdbcType="VARCHAR" property="receiptName" />
     <result column="receipt_phone" jdbcType="VARCHAR" property="receiptPhone" />
+    <result column="province_id" jdbcType="BIGINT" property="provinceId" />
     <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city_id" jdbcType="BIGINT" property="cityId" />
     <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district_id" jdbcType="BIGINT" property="districtId" />
     <result column="district" jdbcType="VARCHAR" property="district" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="add_time" jdbcType="BIGINT" property="addTime" />
@@ -21,7 +24,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, order_sn, order_status, pay_status, deliver_status, user_id, amount, freight, 
-    receipt_name, receipt_phone, province, city, district, address, add_time, amount_refund
+    receipt_name, receipt_phone, province_id, province, city_id, city, district_id, district, 
+    address, add_time, amount_refund
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -37,13 +41,15 @@
     insert into lt_order (id, order_sn, order_status, 
       pay_status, deliver_status, user_id, 
       amount, freight, receipt_name, 
-      receipt_phone, province, city, 
+      receipt_phone, province_id, province, 
+      city_id, city, district_id, 
       district, address, add_time, 
       amount_refund)
     values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, 
       #{payStatus,jdbcType=INTEGER}, #{deliverStatus,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
       #{amount,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, #{receiptName,jdbcType=VARCHAR}, 
-      #{receiptPhone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{receiptPhone,jdbcType=VARCHAR}, #{provinceId,jdbcType=BIGINT}, #{province,jdbcType=VARCHAR}, 
+      #{cityId,jdbcType=BIGINT}, #{city,jdbcType=VARCHAR}, #{districtId,jdbcType=BIGINT}, 
       #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{addTime,jdbcType=BIGINT}, 
       #{amountRefund,jdbcType=DECIMAL})
   </insert>
@@ -80,11 +86,20 @@
       <if test="receiptPhone != null">
         receipt_phone,
       </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
       <if test="province != null">
         province,
       </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
       <if test="city != null">
         city,
+      </if>
+      <if test="districtId != null">
+        district_id,
       </if>
       <if test="district != null">
         district,
@@ -130,11 +145,20 @@
       <if test="receiptPhone != null">
         #{receiptPhone,jdbcType=VARCHAR},
       </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=BIGINT},
+      </if>
       <if test="province != null">
         #{province,jdbcType=VARCHAR},
       </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=BIGINT},
+      </if>
       <if test="city != null">
         #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        #{districtId,jdbcType=BIGINT},
       </if>
       <if test="district != null">
         #{district,jdbcType=VARCHAR},
@@ -180,11 +204,20 @@
       <if test="receiptPhone != null">
         receipt_phone = #{receiptPhone,jdbcType=VARCHAR},
       </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=BIGINT},
+      </if>
       <if test="province != null">
         province = #{province,jdbcType=VARCHAR},
       </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
       <if test="city != null">
         city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null">
+        district_id = #{districtId,jdbcType=BIGINT},
       </if>
       <if test="district != null">
         district = #{district,jdbcType=VARCHAR},
@@ -212,8 +245,11 @@
       freight = #{freight,jdbcType=DECIMAL},
       receipt_name = #{receiptName,jdbcType=VARCHAR},
       receipt_phone = #{receiptPhone,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=BIGINT},
       province = #{province,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
       city = #{city,jdbcType=VARCHAR},
+      district_id = #{districtId,jdbcType=BIGINT},
       district = #{district,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=BIGINT},

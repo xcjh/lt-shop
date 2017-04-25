@@ -23,9 +23,15 @@ public class Order {
 
     private String receiptPhone;
 
+    private Long provinceId;
+
     private String province;
 
+    private Long cityId;
+
     private String city;
+
+    private Long districtId;
 
     private String district;
 
@@ -115,6 +121,14 @@ public class Order {
         this.receiptPhone = receiptPhone == null ? null : receiptPhone.trim();
     }
 
+    public Long getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
+    }
+
     public String getProvince() {
         return province;
     }
@@ -123,12 +137,28 @@ public class Order {
         this.province = province == null ? null : province.trim();
     }
 
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
+
     public String getCity() {
         return city;
     }
 
     public void setCity(String city) {
         this.city = city == null ? null : city.trim();
+    }
+
+    public Long getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Long districtId) {
+        this.districtId = districtId;
     }
 
     public String getDistrict() {
