@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.common.valid.ReqOrderSearch;
+import com.lt.shop.dao.admin.entity.def.OrderItem;
 
 public interface OrderReadMapper {
 	
@@ -25,5 +26,12 @@ public interface OrderReadMapper {
    * @return
    */
 	int listTotal(@Param("params")ReqOrderSearch params);
+	
+	/**
+	 * 获取订单明细列表
+	 * @param orderId
+	 * @return
+	 */
+	List<Map<String,Object>> listOrderItems(Long orderId);
 
 }

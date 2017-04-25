@@ -50,6 +50,16 @@
 			o.receipt_phone like concat('%', #{params.w},'%')
 		</if>
 	</select>
+	
+	
+	<select id="listOrderItems" resultType="java.util.Map">
+		SELECT
+oi.id,oi.goods_id as goodsId,oi.num,oi.user_id as userId,oi.add_time as addTime,oi.order_id as orderId,oi.price as buyPrice,
+g.title,g.def_img as defImg,g.price_market as priceMarket
+from lt_order_item oi 
+LEFT JOIN lt_goods g on oi.goods_id=g.id
+where oi.order_id=#{orderId}
+	</select>
 
 
 

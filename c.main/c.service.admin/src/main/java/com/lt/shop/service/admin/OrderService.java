@@ -1,5 +1,6 @@
 package com.lt.shop.service.admin;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +12,11 @@ import com.common.service.BaseService;
 import com.common.utils.Pager;
 import com.common.valid.ReqOrderSearch;
 import com.lt.shop.dao.admin.entity.def.Order;
+import com.lt.shop.dao.admin.entity.def.OrderItem;
+import com.lt.shop.dao.admin.entity.def.User;
 import com.lt.shop.dao.admin.impl.custom.OrderReadMapper;
 import com.lt.shop.dao.admin.impl.def.OrderMapper;
+import com.lt.shop.dao.admin.impl.def.UserMapper;
 
 /**
  * 管理后台订单管理业务处理
@@ -24,8 +28,12 @@ public class OrderService extends BaseService {
 	
 	@Autowired
 	OrderMapper orderMapper;
+	
 	@Autowired
 	OrderReadMapper orderReadMapper;
+	
+	@Autowired
+	UserMapper userMapper;
 	
 	/**
 	 * 用户分页列表
@@ -56,6 +64,21 @@ public class OrderService extends BaseService {
 			order.setDeliverStatus(2);
 		}
 		return orderMapper.updateByPrimaryKey(order);
+	}
+	/**
+	 * 订单详情
+	 * @param id
+	 * @return
+	 */
+	public Map<String,Object> detail(Long id){
+		Map<String,Object>  map = new HashMap<String,Object>();
+		Order order = orderMapper.selectByPrimaryKey(id);
+		map.put("order",order);
+		List<Map<String,Object>> list = orderReadMapper.listOrderItems(id);
+		map.put("list", list);
+		User user = userMapper.selectByPrimaryKey(order.getUserId());
+		map.put("user", user);
+		return map;
 	}
 
 }

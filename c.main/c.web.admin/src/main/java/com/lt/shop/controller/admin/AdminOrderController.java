@@ -60,5 +60,16 @@ public class AdminOrderController extends AdminController {
 		}
 		return resp(orderService.modfiyStatus(id, status));
 	}
+	
+	/**
+	 * 订单详情
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/o/d-{id}",method=RequestMethod.GET)
+	public String list(@PathVariable Long id){
+		request.setAttribute("detail", orderService.detail(id));
+		return THEME+"/order/detail"; 
+	}
 
 }
