@@ -6,7 +6,7 @@
     <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
     <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
     <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
-    <result column="deliver_status" jdbcType="CHAR" property="deliverStatus" />
+    <result column="deliver_status" jdbcType="INTEGER" property="deliverStatus" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="amount" jdbcType="DECIMAL" property="amount" />
     <result column="freight" jdbcType="DECIMAL" property="freight" />
@@ -33,7 +33,7 @@
     delete from lt_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.Order">
     insert into lt_order (id, order_sn, order_status, 
       pay_status, deliver_status, user_id, 
       amount, freight, receipt_name, 
@@ -41,13 +41,13 @@
       district, address, add_time, 
       amount_refund)
     values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, 
-      #{payStatus,jdbcType=INTEGER}, #{deliverStatus,jdbcType=CHAR}, #{userId,jdbcType=BIGINT}, 
+      #{payStatus,jdbcType=INTEGER}, #{deliverStatus,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
       #{amount,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, #{receiptName,jdbcType=VARCHAR}, 
       #{receiptPhone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{addTime,jdbcType=BIGINT}, 
       #{amountRefund,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.lt.shop.dao.admin.entity.def.Order">
+  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
     insert into lt_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -113,7 +113,7 @@
         #{payStatus,jdbcType=INTEGER},
       </if>
       <if test="deliverStatus != null">
-        #{deliverStatus,jdbcType=CHAR},
+        #{deliverStatus,jdbcType=INTEGER},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
@@ -163,7 +163,7 @@
         pay_status = #{payStatus,jdbcType=INTEGER},
       </if>
       <if test="deliverStatus != null">
-        deliver_status = #{deliverStatus,jdbcType=CHAR},
+        deliver_status = #{deliverStatus,jdbcType=INTEGER},
       </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
@@ -206,7 +206,7 @@
     set order_sn = #{orderSn,jdbcType=VARCHAR},
       order_status = #{orderStatus,jdbcType=INTEGER},
       pay_status = #{payStatus,jdbcType=INTEGER},
-      deliver_status = #{deliverStatus,jdbcType=CHAR},
+      deliver_status = #{deliverStatus,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=BIGINT},
       amount = #{amount,jdbcType=DECIMAL},
       freight = #{freight,jdbcType=DECIMAL},

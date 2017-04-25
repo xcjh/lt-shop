@@ -11,7 +11,7 @@ public class Order {
 
     private Integer payStatus;
 
-    private String deliverStatus;
+    private Integer deliverStatus;
 
     private Long userId;
 
@@ -67,12 +67,12 @@ public class Order {
         this.payStatus = payStatus;
     }
 
-    public String getDeliverStatus() {
+    public Integer getDeliverStatus() {
         return deliverStatus;
     }
 
-    public void setDeliverStatus(String deliverStatus) {
-        this.deliverStatus = deliverStatus == null ? null : deliverStatus.trim();
+    public void setDeliverStatus(Integer deliverStatus) {
+        this.deliverStatus = deliverStatus;
     }
 
     public Long getUserId() {

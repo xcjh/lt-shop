@@ -11,7 +11,7 @@
 	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <jsp:include page="../inc_header.jsp"></jsp:include>
-<title>商品管理</title>
+<title>订单管理</title>
 </head>
 <body>
 <nav class="breadcrumb">
@@ -69,6 +69,26 @@
 					<html:dateformat time="${item.addTime }"></html:dateformat>
 				</td>
 				<td>
+					<a title="支付"  href="javascript:;" oid="${item.id }" status="2" cs="1" class="ms ml-5" 
+					<c:if test="${item.orderStatus!=1 }">style="display:none"</c:if>
+					>
+						<i class="Hui-iconfont">&#xe63a;</i>
+					</a>
+					<a title="发货"  href="javascript:;" oid="${item.id }" status="3" cs="2" class="ms ml-5" 
+					<c:if test="${item.orderStatus!=2 }">style="display:none"</c:if>
+					>
+						<i class="Hui-iconfont">&#xe634;</i>
+					</a>
+					<a title="收货"  href="javascript:;" oid="${item.id }" status="4" cs="3"  class="ms ml-5" 
+					<c:if test="${item.orderStatus!=3 }">style="display:none"</c:if>
+					>
+						<i class="Hui-iconfont">&#xe669;</i>
+					</a>
+					<a title="取消"  href="javascript:;" oid="${item.id }" status="0"  class="ms ml-5" 
+					<c:if test="${item.orderStatus gt 3 }">style="display:none"</c:if>
+					>
+						<i class="Hui-iconfont">&#xe6e2;</i>
+					</a>
 					
 				</td>
 			</tr>
@@ -82,12 +102,10 @@
 <script type="text/javascript">
 $(function(){
 	$(".ms").click(function(){
-		var uid = $(this).attr("uid");
+		var oid = $(this).attr("oid");
 		var status = $(this).attr("status");
-		var flag = "正常";
-		if(status==0)flag="禁用";
 		var title = $(this).prop("title");
-		var url ="m/"+uid+"/"+status;
+		var url ="m/"+oid+"/"+status;
 		var that = this;
 		layer.confirm("您确定要执行["+title+"]操作吗？",function(index){
 			$.ajax({
@@ -96,15 +114,24 @@ $(function(){
 				dataType: 'json',
 				success: function(data){
 					if(data.result==1){
-						$(".ms[uid="+uid+"]").each(function(){
-							if($(this).attr("status")==status){
-								$(this).hide();
-							}
-							else{
-								$(this).show();
-							}
-						});
-						$(that).parent().parent().find(".mspanel").html(flag);
+						$(that).hide();
+						$(that).nextAll("a[cs="+status+"]").show();
+						if(status==0){
+							$(".ms").hide();
+							$(that).parent().parent().find("td").eq(1).html("已取消");
+						}
+						if(status==2){
+							$(that).parent().parent().find("td").eq(1).html("已支付");
+							$(that).parent().parent().find("td").eq(2).html("已付款");
+						}
+						if(status==3){
+							$(that).parent().parent().find("td").eq(1).html("已发货");
+							$(that).parent().parent().find("td").eq(3).html("已发货");
+						}
+						if(status==4){
+							$(".ms").hide();
+							$(that).parent().parent().find("td").eq(1).html("已收货");
+						}
 						layer.msg(title+'成功!',{icon:1,time:1000});
 					}else{
 						layer.msg('操作失败!',{icon:2,time:1000});

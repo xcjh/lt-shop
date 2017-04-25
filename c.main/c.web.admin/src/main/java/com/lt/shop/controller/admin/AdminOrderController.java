@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.utils.StringUtils;
 import com.common.valid.ReqOrderSearch;
@@ -40,6 +41,24 @@ public class AdminOrderController extends AdminController {
 		request.setAttribute("pageNo",pageNo);
 		request.setAttribute("params",params);
 		return THEME+"/order/list";
+	}
+	
+	/**
+	 * 修改订单状态，付款，发货，收货
+	 * @param id 用户ID
+	 * @param status 新状态
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/o/m/{id}/{status}",method = RequestMethod.POST,produces = "text/json;charset=UTF-8")
+	public String modfiyStatus(@PathVariable Long id,@PathVariable Integer status){
+		if(id==null){
+			return resp(2,"ID不能为空");
+		}
+		if(status==null){
+			return resp(2,"新状态不能为空");
+		}
+		return resp(orderService.modfiyStatus(id, status));
 	}
 
 }
