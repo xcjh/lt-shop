@@ -74,16 +74,20 @@ DROP TABLE IF EXISTS `lt_order`;
 CREATE TABLE `lt_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `order_sn` varchar(50) DEFAULT NULL,
+  `order_status` int(11) DEFAULT NULL COMMENT '0已取消,1新订单,2已支付,3已发货,4已收货,5已完成',
+  `pay_status` int(11) DEFAULT NULL COMMENT '1未付款，2已付款，3已退款',
+  `deliver_status` char(10) DEFAULT NULL COMMENT '1未发货，2已发货，3已退货',
   `user_id` bigint(20) DEFAULT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
-  `freight` decimal(10,2) DEFAULT NULL COMMENT '运费',
-  `receipt_name` varchar(100) DEFAULT NULL COMMENT '收货姓名',
-  `receipt_phone` varchar(100) DEFAULT NULL COMMENT '收货手机号',
+  `freight` decimal(10,2) DEFAULT NULL,
+  `receipt_name` varchar(100) DEFAULT NULL,
+  `receipt_phone` varchar(100) DEFAULT NULL,
   `province` varchar(100) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
   `district` varchar(100) DEFAULT NULL,
   `address` varchar(300) DEFAULT NULL,
   `add_time` bigint(20) DEFAULT NULL,
+  `amount_refund` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -169,3 +173,32 @@ CREATE TABLE `lt_user` (
 -- ----------------------------
 INSERT INTO `lt_user` VALUES ('1', 'xiaoli', null, '0192023a7bbd73250516f069df18b500', null, null, '0', '0', null, null, '0', null, null, '1', null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `lt_user` VALUES ('2', '13811451717', '13811451717', '0192023a7bbd73250516f069df18b500', null, null, null, null, null, null, null, null, null, '1', null, null, null, null, null, null, null, null, '1492674035291', null);
+-- ----------------------------
+-- Table structure for `lt_order_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `lt_order_log`;
+CREATE TABLE `lt_order_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL COMMENT '订单ID',
+  `ltime` datetime DEFAULT NULL COMMENT '时间',
+  `ltype` varchar(20) DEFAULT NULL COMMENT '类型，1:订单；2:费用；3：物流；',
+  `lmemo` varchar(255) DEFAULT NULL COMMENT '说明',
+  `lremark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- Table structure for `lt_user_addr`
+-- ----------------------------
+DROP TABLE IF EXISTS `lt_user_addr`;
+CREATE TABLE `lt_user_addr` (
+  `id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `province_id` int(255) DEFAULT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `district_id` int(11) DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `receipt_name` varchar(50) DEFAULT NULL,
+  `receipt_phone` varchar(50) DEFAULT NULL,
+  `add_time` datetime DEFAULT NULL,
+  `default_used` int(255) DEFAULT NULL COMMENT '默认，1，是，0否'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
