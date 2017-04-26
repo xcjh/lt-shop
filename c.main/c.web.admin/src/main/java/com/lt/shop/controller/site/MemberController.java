@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.Constant;
 import com.common.utils.StringUtils;
 import com.lt.shop.dao.admin.entity.def.User;
+import com.lt.shop.service.admin.ConfigService;
 import com.lt.shop.service.site.SiteMemberOrderService;
 
 /**
@@ -25,6 +26,9 @@ public class MemberController extends SiteController {
 	
 	@Autowired
 	SiteMemberOrderService siteMemberOrderService;
+	
+	@Autowired
+	ConfigService configService;
 
 	/**
 	 * 首页
@@ -97,6 +101,7 @@ public class MemberController extends SiteController {
 	public String contact(){
 		User user = (User)contextService.getObject(Constant.SITE_LOGIN_USER);
 		request.setAttribute("user", user);
+		request.setAttribute("config", configService.get(1l));
 		return THEME+"/member/contact";
 	}
 	
@@ -108,6 +113,7 @@ public class MemberController extends SiteController {
 	public String protocol(){
 		User user = (User)contextService.getObject(Constant.SITE_LOGIN_USER);
 		request.setAttribute("user", user);
+		request.setAttribute("config", configService.get(1l));
 		return THEME+"/member/protocol";
 	}
 }

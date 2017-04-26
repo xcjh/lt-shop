@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.def.ConfigMapper">
+  <resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.Config">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="weibo" jdbcType="VARCHAR" property="weibo" />
+    <result column="weixin" jdbcType="VARCHAR" property="weixin" />
+    <result column="xieyi" jdbcType="VARCHAR" property="xieyi" typeHandler="com.common.dao.MyBlobTypeHandler" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, email, phone, address, weibo, weixin, xieyi
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lt_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lt_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.Config">
+    insert into lt_config (id, email, phone, 
+      address, weibo, weixin, 
+      xieyi)
+    values (#{id,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{weibo,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
+      #{xieyi})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.Config">
+    insert into lt_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="weibo != null">
+        weibo,
+      </if>
+      <if test="weixin != null">
+        weixin,
+      </if>
+      <if test="xieyi != null">
+        xieyi,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="weibo != null">
+        #{weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="xieyi != null">
+        #{xieyi},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.Config">
+    update lt_config
+    <set>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="weibo != null">
+        weibo = #{weibo,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null">
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="xieyi != null">
+        xieyi = #{xieyi},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.Config">
+    update lt_config
+    set email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      weibo = #{weibo,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      xieyi = #{xieyi}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

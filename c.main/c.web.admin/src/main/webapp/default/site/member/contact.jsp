@@ -31,11 +31,11 @@
 				</div>
 				<div class="user_list contactlist">
 				    <ul>
-					   <li><i style="color:#00BB9C" class="icon iconfont">&#xe665;</i> 邮箱：</li>
-					   <li><i style="color:#10CD6E" class="icon iconfont">&#xe60a;</i> 电话：</li>
-					   <li><i style="color:#56ABE4" class="icon iconfont">&#xe680;</i> 地址：</li>
-					   <li><i style="color:#EB4F38" class="icon iconfont">&#xe661;</i> 微博：</li>
-					   <li><i style="color:#CFAA51" class="icon iconfont">&#xe695;</i> 微信：</li>
+					   <li><i style="color:#00BB9C" class="icon iconfont">&#xe665;</i> 邮箱：${config.email}</li>
+					   <li><i style="color:#10CD6E" class="icon iconfont">&#xe60a;</i> 电话：${config.phone}</li>
+					   <li><i style="color:#56ABE4" class="icon iconfont">&#xe680;</i> 地址：${config.address}</li>
+					   <li><i style="color:#EB4F38" class="icon iconfont">&#xe661;</i> 微博：${config.weibo}</li>
+					   <li><i style="color:#CFAA51" class="icon iconfont">&#xe695;</i> 微信：${config.weixin}</li>
 					</ul>
 				</div>
             </div>

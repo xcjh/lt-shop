@@ -110,7 +110,7 @@
 		<div class="btmline"></div>
 		<c:if test="${detail.order.orderStatus==1 }">
 			<div class="order_footer">
-				<a class="order_footerbtn bg1" href="/pay/wx-${dto.order.id }">去支付</a>
+				<a class="order_footerbtn bg1" href="/pay/wx-${detail.order.id }">去支付</a>
 				<a class="order_footerbtn bg2" href="javascript:void(0);">取消订单</a>
 			</div>
 		</c:if>
