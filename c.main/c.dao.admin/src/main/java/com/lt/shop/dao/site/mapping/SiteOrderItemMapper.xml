@@ -4,13 +4,14 @@
 	<resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.OrderItem">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+		<result column="price" jdbcType="DECIMAL" property="price" />
 		<result column="num" jdbcType="INTEGER" property="num" />
 		<result column="user_id" jdbcType="BIGINT" property="userId" />
 		<result column="add_time" jdbcType="BIGINT" property="addTime" />
 		<result column="order_id" jdbcType="BIGINT" property="orderId" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, goods_id, num, user_id, add_time, order_id
+		id, goods_id, price, num, user_id, add_time, order_id
 	</sql>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
@@ -23,15 +24,12 @@
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.OrderItem">
-		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		insert into lt_order_item (goods_id, num,
-		user_id, add_time, order_id
-		)
-		values (#{goodsId,jdbcType=BIGINT}, #{num,jdbcType=INTEGER},
-		#{userId,jdbcType=BIGINT}, #{addTime,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}
-		)
+		insert into lt_order_item (id, goods_id, price,
+		num, user_id, add_time,
+		order_id)
+		values (#{id,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL},
+		#{num,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{addTime,jdbcType=BIGINT},
+		#{orderId,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.OrderItem">
 		insert into lt_order_item
@@ -41,6 +39,9 @@
 			</if>
 			<if test="goodsId != null">
 				goods_id,
+			</if>
+			<if test="price != null">
+				price,
 			</if>
 			<if test="num != null">
 				num,
@@ -62,6 +63,9 @@
 			<if test="goodsId != null">
 				#{goodsId,jdbcType=BIGINT},
 			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
 			<if test="num != null">
 				#{num,jdbcType=INTEGER},
 			</if>
@@ -82,6 +86,9 @@
 			<if test="goodsId != null">
 				goods_id = #{goodsId,jdbcType=BIGINT},
 			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
 			<if test="num != null">
 				num = #{num,jdbcType=INTEGER},
 			</if>
@@ -100,6 +107,7 @@
 	<update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.OrderItem">
 		update lt_order_item
 		set goods_id = #{goodsId,jdbcType=BIGINT},
+		price = #{price,jdbcType=DECIMAL},
 		num = #{num,jdbcType=INTEGER},
 		user_id = #{userId,jdbcType=BIGINT},
 		add_time = #{addTime,jdbcType=BIGINT},

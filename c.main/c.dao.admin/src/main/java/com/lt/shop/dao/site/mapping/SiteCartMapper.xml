@@ -17,19 +17,24 @@
 		select
 		c.id as cartId,c.goods_id as
 		goodsId,c.num,g.title,g.price,g.freight,g.weight,g.def_img as defImg
-		from lt_cart c left JOIN lt_goods g on c.goods_id=g.id
+		from lt_cart c left
+		JOIN lt_goods g on c.goods_id=g.id
 		where c.user_id=#{userId} and g.`status`=1
 		order by c.add_time desc
 
 	</select>
 
 	<select id="get" resultMap="BaseResultMap">
-		 select 
-    <include refid="Base_Column_List" />
-    from lt_cart
-    where goods_id=#{goodsId} and user_id=#{userId}
+		select
+		<include refid="Base_Column_List" />
+		from lt_cart
+		where goods_id=#{goodsId} and user_id=#{userId}
 	</select>
-
-
-
+	<delete id="batchDelete" parameterType="java.util.List">
+		delete from lt_cart
+		where id in
+		<foreach collection="cartids" open="(" item="item" close=")" separator=",">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+	</delete>
 </mapper>

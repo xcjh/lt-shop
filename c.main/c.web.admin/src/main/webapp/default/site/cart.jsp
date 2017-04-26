@@ -24,8 +24,8 @@
 		<div class="box_main">
 
 			<div class="order_detailtips">
-				<span class="fl"><i style="color: #CFAA51" class="icon iconfont">&#xe65c;</i> 您的购物车清单</span> <span class="fr"> <a href="/"><i style="color: #CFAA51"
-						class="icon iconfont">&#xe699;</i> </a>
+				<span class="fl"><i style="color: #CFAA51" class="icon iconfont">&#xe65c;</i> 您的购物车清单</span> <span class="fr"> <a href="/"><i
+						style="color: #CFAA51" class="icon iconfont">&#xe699;</i> </a>
 				</span>
 			</div>
 			<div class="combox">
@@ -128,30 +128,27 @@
 			});
 			//确定事件
 			$(".clearing_btn").click(function() {
+				if ($(".numitem").size() == 0) {
+					layer.open({
+						content : '您还没有添加商品',
+						skin : 'msg',
+						time : 2, //2秒后自动关闭
+					});
+					return;
+				}
 				layer.open({
 					type : 2
 				});
-				var flag = $(this).attr("flag");
-				$.ajax({
-					type : 'POST',
-					url : '../order/save',
-					data : getorder(),
-					success : function(d) {
-						
-					},
-					error : function() {
+				layer.open({
+					content : '正在生成订单……',
+					skin : 'msg',
+					time : 1, //2秒后自动关闭
+					end : function() {
+						layer.closeAll();
+						location.href = "../order/confirm";
 					}
 				});
 			});
-			
-			function getorder() {
-				var order = "";
-				for (var i = 0; i < $(".numitem").length; i++) {
-					var item = $($(".numitem")[0]);
-					order += "|" + item.attr("gid") + "," + item.attr("num") + "," + item.attr("price");
-				}
-				return order;
-			}
 		});
 	</script>
 </body>

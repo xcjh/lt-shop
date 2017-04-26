@@ -13,7 +13,7 @@
 		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
 		<result column="default_used" jdbcType="INTEGER" property="defaultUsed" />
 	</resultMap>
-	<resultMap id="CustomResultMap" type="com.lt.shop.dao.admin.entity.def.UserAddr">
+	<resultMap id="CustomResultMap" type="com.lt.shop.dao.admin.entity.custom.UserAddrEntity">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="user_id" jdbcType="BIGINT" property="userId" />
 		<result column="province" jdbcType="VARCHAR" property="province" />
@@ -33,7 +33,7 @@
 		add_time, default_used
 	</sql>
 	<sql id="Custom_Column_List">
-		lt_user_addr.id, lt_user_addr.user_id, s_province.province, lt_user_addr.province_id, s_city.city, lt_user_addr.city_id, s_district.district,
+		lt_user_addr.id, lt_user_addr.user_id, s_province.ProvinceName province, lt_user_addr.province_id, s_city.CityName city, lt_user_addr.city_id, s_district.DistrictName district,
 		lt_user_addr.district_id, lt_user_addr.address, lt_user_addr.receipt_name, lt_user_addr.receipt_phone,
 		lt_user_addr.add_time, lt_user_addr.default_used
 	</sql>
@@ -47,17 +47,27 @@
 		s_district ON s_district.DistrictID = lt_user_addr.district_id
 		where id = #{id,jdbcType=BIGINT}
 	</select>
+	<select id="selectByUser" parameterType="java.lang.Long" resultMap="CustomResultMap">
+		select
+		<include refid="Custom_Column_List" />
+		from lt_user_addr
+		LEFT JOIN s_province ON s_province.ProvinceID = lt_user_addr.province_id
+		LEFT JOIN s_city ON s_city.CityID = lt_user_addr.city_id
+		LEFT JOIN
+		s_district ON s_district.DistrictID = lt_user_addr.district_id
+		where user_id = #{userId,jdbcType=BIGINT} AND default_used = '1'  limit 1
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from lt_user_addr
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.lt.shop.dao.admin.entity.def.UserAddr">
-		insert into lt_user_addr (id, user_id, province_id,
+	<insert id="insert" parameterType="com.lt.shop.dao.admin.entity.custom.UserAddrEntity">
+		insert into lt_user_addr ( user_id, province_id,
 		city_id, district_id, address,
 		receipt_name, receipt_phone,
 		add_time,
 		default_used)
-		values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{provinceId,jdbcType=BIGINT},
+		values (#{userId,jdbcType=BIGINT}, #{provinceId,jdbcType=BIGINT},
 		#{cityId,jdbcType=BIGINT},
 		#{districtId,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR},
 		#{receiptName,jdbcType=VARCHAR}, #{receiptPhone,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP},
@@ -163,7 +173,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.UserAddr">
+	<update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.custom.UserAddrEntity">
 		update lt_user_addr
 		set user_id = #{userId,jdbcType=BIGINT},
 		province_id = #{provinceId,jdbcType=BIGINT},
@@ -173,7 +183,6 @@
 		receipt_name =
 		#{receiptName,jdbcType=VARCHAR},
 		receipt_phone = #{receiptPhone,jdbcType=VARCHAR},
-		add_time = #{addTime,jdbcType=TIMESTAMP},
 		default_used =
 		#{defaultUsed,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}

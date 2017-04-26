@@ -1,7 +1,9 @@
 package com.lt.shop.service.site;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.lt.shop.dao.admin.entity.custom.UserAddrEntity;
 import com.lt.shop.dao.admin.entity.def.Order;
 import com.lt.shop.dao.admin.entity.def.OrderItem;
 import com.lt.shop.dao.admin.entity.def.User;
+import com.lt.shop.dao.site.impl.SiteCartMapper;
 import com.lt.shop.dao.site.impl.SiteOrderItemMapper;
 import com.lt.shop.dao.site.impl.SiteOrderMapper;
 import com.lt.shop.dao.site.impl.SiteUserAddrMapper;
@@ -27,6 +30,9 @@ import com.lt.shop.dao.site.impl.SiteUserAddrMapper;
 public class SiteOrderService extends BaseService {
 
 	@Autowired
+	SiteCartMapper siteCartMapper;
+
+	@Autowired
 	SiteOrderMapper siteOrderMapper;
 
 	@Autowired
@@ -34,6 +40,9 @@ public class SiteOrderService extends BaseService {
 
 	@Autowired
 	SiteUserAddrMapper siteUserAddrMapper;
+	
+	@Autowired
+	SiteUserAddrService siteUserAddrService;
 
 	public Order getDefaultOrder() {
 		Order order = new Order();
@@ -49,17 +58,19 @@ public class SiteOrderService extends BaseService {
 		return order;
 	}
 
-	private void putAddr(Order order, Long addrId) {
-		UserAddrEntity addr = siteUserAddrMapper.selectByPrimaryKey(addrId);
-		if (addr == null) {
-			// throw new Exception("addr is null.");
-			return;
-		}
-		order.setProvince(addr.getProvince());
-		order.setCity(addr.getCity());
-		order.setDistrict(addr.getDistrict());
-		order.setReceiptName(addr.getReceiptName());
-		order.setReceiptPhone(addr.getReceiptPhone());
+	private void putAddr(Order order, User user, String receiptName, String receiptPhone, Long provinceId, Long cityId,
+			Long districtId, String address) {
+		UserAddrEntity entity = siteUserAddrService.get(user.getId(), receiptName, receiptPhone, provinceId, cityId, districtId,
+				address);
+		order.setReceiptName(receiptName);
+		order.setReceiptPhone(receiptPhone);
+		order.setProvinceId(provinceId);
+		// order.setProvince(addr.getProvince());
+		order.setCityId(cityId);
+		// order.setCity(addr.getCity());
+		order.setDistrictId(districtId);
+		// order.setDistrict(addr.getDistrict());
+		order.setAddress(address);
 	}
 
 	/**
@@ -69,21 +80,26 @@ public class SiteOrderService extends BaseService {
 	 * @param num
 	 * @return
 	 */
-	public int add(BigDecimal amount, BigDecimal freight, String[][] items) {
+	public int add(String receiptName, String receiptPhone, Long provinceId, Long cityId, Long districtId,
+			String address, String[] goods, BigDecimal amountTotal, BigDecimal freightTotal) {
 		User user = (User) contextService.getObject(Constant.SITE_LOGIN_USER);
 		Order order = getDefaultOrder();
 		order.setUserId(user.getId());
-		order.setAmount(amount);
-		order.setFreight(freight);
+		order.setAmount(amountTotal);
+		order.setFreight(freightTotal);
+		putAddr(order, user, receiptName, receiptPhone, provinceId, cityId, districtId, address);
 		Long orderId = siteOrderMapper.insert(order);
-		if (items != null && items.length > 0) {
+		if (goods != null && goods.length > 0) {
 			OrderItem oi = null;
 			int result = 0;
-			for (String[] item : items) {
+			List<String> cartIds = new ArrayList<>();
+			for (String good : goods) {
+				String[] items = good.split("_");
+				cartIds.add(items[0]);
 				oi = new OrderItem();
-				oi.setGoodsId(new Long(item[0]));
-				oi.setPrice(new BigDecimal(item[1]));
-				oi.setNum(new Integer(item[2]));
+				oi.setGoodsId(new Long(items[1]));
+				oi.setNum(new Integer(items[2]));
+				oi.setPrice(new BigDecimal(items[3]));
 				oi.setOrderId(orderId);
 				oi.setUserId(user.getId());
 				oi.setAddTime(new Date().getTime());
@@ -92,27 +108,11 @@ public class SiteOrderService extends BaseService {
 					// throw new Exception("order item add fial.");
 				}
 			}
+			siteCartMapper.batchDelete(cartIds); // 清空购物车
 		} else {
 			// throw new Exception("order item is null.");
 		}
-		// 清空购物车
-		
 		return 1; // ?
-	}
-
-	/**
-	 * 编辑商品数量
-	 * 
-	 * @param gid
-	 * @param num
-	 * @return
-	 */
-	public int edit(Long orderId, Long addrId) {
-		Order order = siteOrderMapper.selectByPrimaryKey(orderId);
-		putAddr(order, addrId);
-		// 预留以后有优惠券
-		siteOrderMapper.updateOrder(order);
-		return 0;
 	}
 
 }

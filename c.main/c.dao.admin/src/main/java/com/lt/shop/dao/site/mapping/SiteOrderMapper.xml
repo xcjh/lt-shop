@@ -4,20 +4,29 @@
 	<resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.Order">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
+		<result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+		<result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+		<result column="deliver_status" jdbcType="INTEGER" property="deliverStatus" />
 		<result column="user_id" jdbcType="BIGINT" property="userId" />
 		<result column="amount" jdbcType="DECIMAL" property="amount" />
 		<result column="freight" jdbcType="DECIMAL" property="freight" />
 		<result column="receipt_name" jdbcType="VARCHAR" property="receiptName" />
 		<result column="receipt_phone" jdbcType="VARCHAR" property="receiptPhone" />
+		<result column="province_id" jdbcType="BIGINT" property="provinceId" />
 		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city_id" jdbcType="BIGINT" property="cityId" />
 		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="district_id" jdbcType="BIGINT" property="districtId" />
 		<result column="district" jdbcType="VARCHAR" property="district" />
 		<result column="address" jdbcType="VARCHAR" property="address" />
 		<result column="add_time" jdbcType="BIGINT" property="addTime" />
+		<result column="amount_refund" jdbcType="DECIMAL" property="amountRefund" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, order_sn, user_id, amount, freight, receipt_name, receipt_phone, province, city,
-		district, address, add_time
+		id, order_sn, order_status, pay_status, deliver_status, user_id, amount, freight,
+		receipt_name, receipt_phone, province_id, province, city_id, city,
+		district_id, district,
+		address, add_time, amount_refund
 	</sql>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
@@ -33,20 +42,23 @@
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into lt_order (order_sn, user_id,
+		insert into lt_order (id, order_sn, order_status,
+		pay_status, deliver_status, user_id,
 		amount, freight, receipt_name,
-		receipt_phone, province, city,
-		district, address, add_time
-		)
-		values
-		(#{orderSn,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT},
-		#{amount,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL},
-		#{receiptName,jdbcType=VARCHAR},
-		#{receiptPhone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
-		#{district,jdbcType=VARCHAR},
-		#{address,jdbcType=VARCHAR},
-		#{addTime,jdbcType=BIGINT}
-		)
+		receipt_phone, province_id, province,
+		city_id, city, district_id,
+		district, address, add_time,
+		amount_refund)
+		values (#{id,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR},
+		#{orderStatus,jdbcType=INTEGER},
+		#{payStatus,jdbcType=INTEGER}, #{deliverStatus,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT},
+		#{amount,jdbcType=DECIMAL},
+		#{freight,jdbcType=DECIMAL}, #{receiptName,jdbcType=VARCHAR},
+		#{receiptPhone,jdbcType=VARCHAR}, #{provinceId,jdbcType=BIGINT}, #{province,jdbcType=VARCHAR},
+		#{cityId,jdbcType=BIGINT}, #{city,jdbcType=VARCHAR}, #{districtId,jdbcType=BIGINT},
+		#{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{addTime,jdbcType=BIGINT},
+		#{amountRefund,jdbcType=DECIMAL})
 	</insert>
 	<insert id="insertSelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
 		insert into lt_order
@@ -56,6 +68,15 @@
 			</if>
 			<if test="orderSn != null">
 				order_sn,
+			</if>
+			<if test="orderStatus != null">
+				order_status,
+			</if>
+			<if test="payStatus != null">
+				pay_status,
+			</if>
+			<if test="deliverStatus != null">
+				deliver_status,
 			</if>
 			<if test="userId != null">
 				user_id,
@@ -72,11 +93,20 @@
 			<if test="receiptPhone != null">
 				receipt_phone,
 			</if>
+			<if test="provinceId != null">
+				province_id,
+			</if>
 			<if test="province != null">
 				province,
 			</if>
+			<if test="cityId != null">
+				city_id,
+			</if>
 			<if test="city != null">
 				city,
+			</if>
+			<if test="districtId != null">
+				district_id,
 			</if>
 			<if test="district != null">
 				district,
@@ -87,6 +117,9 @@
 			<if test="addTime != null">
 				add_time,
 			</if>
+			<if test="amountRefund != null">
+				amount_refund,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -94,6 +127,15 @@
 			</if>
 			<if test="orderSn != null">
 				#{orderSn,jdbcType=VARCHAR},
+			</if>
+			<if test="orderStatus != null">
+				#{orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="payStatus != null">
+				#{payStatus,jdbcType=INTEGER},
+			</if>
+			<if test="deliverStatus != null">
+				#{deliverStatus,jdbcType=INTEGER},
 			</if>
 			<if test="userId != null">
 				#{userId,jdbcType=BIGINT},
@@ -110,11 +152,20 @@
 			<if test="receiptPhone != null">
 				#{receiptPhone,jdbcType=VARCHAR},
 			</if>
+			<if test="provinceId != null">
+				#{provinceId,jdbcType=BIGINT},
+			</if>
 			<if test="province != null">
 				#{province,jdbcType=VARCHAR},
 			</if>
+			<if test="cityId != null">
+				#{cityId,jdbcType=BIGINT},
+			</if>
 			<if test="city != null">
 				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="districtId != null">
+				#{districtId,jdbcType=BIGINT},
 			</if>
 			<if test="district != null">
 				#{district,jdbcType=VARCHAR},
@@ -125,6 +176,9 @@
 			<if test="addTime != null">
 				#{addTime,jdbcType=BIGINT},
 			</if>
+			<if test="amountRefund != null">
+				#{amountRefund,jdbcType=DECIMAL},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.lt.shop.dao.admin.entity.def.Order">
@@ -132,6 +186,15 @@
 		<set>
 			<if test="orderSn != null">
 				order_sn = #{orderSn,jdbcType=VARCHAR},
+			</if>
+			<if test="orderStatus != null">
+				order_status = #{orderStatus,jdbcType=INTEGER},
+			</if>
+			<if test="payStatus != null">
+				pay_status = #{payStatus,jdbcType=INTEGER},
+			</if>
+			<if test="deliverStatus != null">
+				deliver_status = #{deliverStatus,jdbcType=INTEGER},
 			</if>
 			<if test="userId != null">
 				user_id = #{userId,jdbcType=BIGINT},
@@ -148,11 +211,20 @@
 			<if test="receiptPhone != null">
 				receipt_phone = #{receiptPhone,jdbcType=VARCHAR},
 			</if>
+			<if test="provinceId != null">
+				province_id = #{provinceId,jdbcType=BIGINT},
+			</if>
 			<if test="province != null">
 				province = #{province,jdbcType=VARCHAR},
 			</if>
+			<if test="cityId != null">
+				city_id = #{cityId,jdbcType=BIGINT},
+			</if>
 			<if test="city != null">
 				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="districtId != null">
+				district_id = #{districtId,jdbcType=BIGINT},
 			</if>
 			<if test="district != null">
 				district = #{district,jdbcType=VARCHAR},
@@ -163,12 +235,18 @@
 			<if test="addTime != null">
 				add_time = #{addTime,jdbcType=BIGINT},
 			</if>
+			<if test="amountRefund != null">
+				amount_refund = #{amountRefund,jdbcType=DECIMAL},
+			</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.lt.shop.dao.admin.entity.def.Order">
 		update lt_order
 		set order_sn = #{orderSn,jdbcType=VARCHAR},
+		order_status = #{orderStatus,jdbcType=INTEGER},
+		pay_status = #{payStatus,jdbcType=INTEGER},
+		deliver_status = #{deliverStatus,jdbcType=INTEGER},
 		user_id = #{userId,jdbcType=BIGINT},
 		amount =
 		#{amount,jdbcType=DECIMAL},
@@ -176,23 +254,17 @@
 		receipt_name = #{receiptName,jdbcType=VARCHAR},
 		receipt_phone =
 		#{receiptPhone,jdbcType=VARCHAR},
+		province_id = #{provinceId,jdbcType=BIGINT},
 		province = #{province,jdbcType=VARCHAR},
-		city = #{city,jdbcType=VARCHAR},
-		district = #{district,jdbcType=VARCHAR},
-		address =
-		#{address,jdbcType=VARCHAR},
-		add_time = #{addTime,jdbcType=BIGINT}
-		where id = #{id,jdbcType=BIGINT}
-	</update>
-	<update id="updateOrder" parameterType="com.lt.shop.dao.admin.entity.def.Order">
-		update lt_order
-		set
-		province = #{province,jdbcType=VARCHAR},
-		city = #{city,jdbcType=VARCHAR},
+		city_id = #{cityId,jdbcType=BIGINT},
+		city
+		= #{city,jdbcType=VARCHAR},
+		district_id = #{districtId,jdbcType=BIGINT},
 		district = #{district,jdbcType=VARCHAR},
 		address = #{address,jdbcType=VARCHAR},
-		receipt_name = #{receiptName,jdbcType=VARCHAR},
-		receipt_phone = #{receiptPhone,jdbcType=VARCHAR}
+		add_time
+		= #{addTime,jdbcType=BIGINT},
+		amount_refund = #{amountRefund,jdbcType=DECIMAL}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

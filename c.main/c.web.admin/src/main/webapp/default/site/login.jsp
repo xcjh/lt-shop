@@ -26,8 +26,8 @@
 		<div class="login_top">为保证您的正常使用，请您先登录。</div>
 		<div class="login_con">
 			<ul>
-				<li class="borline"><i><img width="16" src="${ctx }/f/images/login_icon1.png"></i><input id="mobile" name="mobile"	type="text" placeholder="请输入您的手机号" /></li>
-				<li class="borline"><i><img width="16" src="${ctx }/f/images/login_icon2.png"></i><input id="upwd" name="upwd"	type="password" placeholder="请设置您的登录密码" /></li>
+				<li class="borline"><i><img width="16" src="${ctx }/f/images/login_icon1.png"></i><input id="mobile" name="mobile" value="13426161791"	type="text" placeholder="请输入您的手机号" /></li>
+				<li class="borline"><i><img width="16" src="${ctx }/f/images/login_icon2.png"></i><input id="upwd" name="upwd" value="123456"	type="password" placeholder="请设置您的登录密码" /></li>
 				<li><a class="login_btn" >登录</a></li>
 				<li id="errorpanel" class="" style="display:none;color:red;">手机号不正确</li>
 			</ul>

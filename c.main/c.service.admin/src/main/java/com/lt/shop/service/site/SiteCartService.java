@@ -18,31 +18,33 @@ import com.lt.shop.dao.site.impl.SiteCartMapper;
 
 /**
  * 购物车业务处理
+ * 
  * @author xiaoli
  *
  */
 @Service
 public class SiteCartService extends BaseService {
-	
+
 	@Autowired
 	CartMapper cartMapper;
-	
+
 	@Autowired
 	SiteCartMapper siteCartMapper;
-	
+
 	/**
 	 * 添加
+	 * 
 	 * @param gid
 	 * @param num
 	 * @return
 	 */
-	public int add(Long gid,int num){
-		User user = (User)contextService.getObject(Constant.SITE_LOGIN_USER);
+	public int add(Long gid, int num) {
+		User user = (User) contextService.getObject(Constant.SITE_LOGIN_USER);
 		Cart cart = siteCartMapper.get(gid, user.getId());
-		if(cart!=null){
-			cart.setNum(cart.getNum()+num);
+		if (cart != null) {
+			cart.setNum(cart.getNum() + num);
 			return cartMapper.updateByPrimaryKey(cart);
-		}else{
+		} else {
 			cart = new Cart();
 			cart.setAddTime(System.currentTimeMillis());
 			cart.setGoodsId(gid);
@@ -50,22 +52,23 @@ public class SiteCartService extends BaseService {
 			cart.setUserId(user.getId());
 			return cartMapper.insert(cart);
 		}
-		
+
 	}
-	
+
 	/**
 	 * 编辑商品数量
+	 * 
 	 * @param gid
 	 * @param num
 	 * @return
 	 */
-	public int edit(Long gid,int num){
-		User user = (User)contextService.getObject(Constant.SITE_LOGIN_USER);
+	public int edit(Long gid, int num) {
+		User user = (User) contextService.getObject(Constant.SITE_LOGIN_USER);
 		Cart cart = siteCartMapper.get(gid, user.getId());
-		if(cart!=null){
+		if (cart != null) {
 			cart.setNum(num);
 			return cartMapper.updateByPrimaryKey(cart);
-		}else{
+		} else {
 			cart = new Cart();
 			cart.setAddTime(System.currentTimeMillis());
 			cart.setGoodsId(gid);
@@ -73,56 +76,60 @@ public class SiteCartService extends BaseService {
 			cart.setUserId(user.getId());
 			return cartMapper.insert(cart);
 		}
-		
+
 	}
-	
-	
+
 	/**
 	 * 读取登录用户购物车列表
+	 * 
 	 * @return
 	 */
-	public Map<String,Object> listCart(){
-		User user = (User)contextService.getObject(Constant.SITE_LOGIN_USER);
-		Map<String,Object> map = new HashMap<String,Object>();
+	public Map<String, Object> listCart() {
+		User user = (User) contextService.getObject(Constant.SITE_LOGIN_USER);
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<RespCart> list = siteCartMapper.list(user.getId());
-		Double amount = 0d;//总额
-		Double freightTotal = 0d;//运费总和 
-		Double otherWeights=0d;//其他总重量
+		Double amount = 0d; // 总额
+		Double amountTotal = 0d; // 商品总和
+		Double freightTotal = 0d; // 运费总和
+		Double otherWeights = 0d; // 其他总重量
 		for (RespCart respCart : list) {
 			double subtotal = CurrencyUtils.mul(respCart.getPrice(), respCart.getNum());
 			respCart.setSubtotal(subtotal);
-			amount = CurrencyUtils.add(amount, subtotal);
-			if(respCart.getFreight().doubleValue()==0d){
-				double weightSubtotal = CurrencyUtils.mul(respCart.getWeight(), respCart.getNum());//重量小计
+			amountTotal = CurrencyUtils.add(amountTotal, subtotal);
+			if (respCart.getFreight().doubleValue() == 0d) {
+				double weightSubtotal = CurrencyUtils.mul(respCart.getWeight(), respCart.getNum());// 重量小计
 				otherWeights = CurrencyUtils.add(otherWeights, weightSubtotal);
-			}else{
+			} else {
 				freightTotal = CurrencyUtils.add(freightTotal, respCart.getFreight());
 			}
 		}
-		//计算其他重量运费 
-		double otherFreight = countOtherFreight(otherWeights,amount);
+		// 计算其他重量运费
+		double otherFreight = countOtherFreight(otherWeights, amountTotal);
 		freightTotal = CurrencyUtils.add(freightTotal, otherFreight);
-		amount = CurrencyUtils.add(amount, freightTotal);
+		amount = CurrencyUtils.add(amountTotal, freightTotal);
 		map.put("list", list);
+		map.put("freightTotal", freightTotal);
+		map.put("amountTotal", amountTotal);
 		map.put("amount", amount);
+		map.put("count", list.size());
 		map.put("otherWeights", otherWeights);
-		map.put("freightTotal",freightTotal);
 		return map;
 	}
-	
+
 	/**
 	 * 计算其他商品费用
+	 * 
 	 * @param weights
 	 * @param amount
 	 * @return
 	 */
-	public double countOtherFreight(double weights,double amount){
-		int Ykg=1;//首重kg
-		double YkgFee=7;//首重费用元
-		double otherFee=5;//其他每kg费用
-		double addWeigh = CurrencyUtils.sub(weights, Ykg);//其余重量
+	public double countOtherFreight(double weights, double amount) {
+		int Ykg = 1;// 首重kg
+		double YkgFee = 7;// 首重费用元
+		double otherFee = 5;// 其他每kg费用
+		double addWeigh = CurrencyUtils.sub(weights, Ykg);// 其余重量
 		double addFee = CurrencyUtils.mul(otherFee, Math.floor(Math.abs(addWeigh)));
-		return CurrencyUtils.round(CurrencyUtils.add(YkgFee,addFee), 1);
+		return CurrencyUtils.round(CurrencyUtils.add(YkgFee, addFee), 1);
 	}
 
 }
