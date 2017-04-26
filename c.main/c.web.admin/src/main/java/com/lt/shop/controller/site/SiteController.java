@@ -14,5 +14,7 @@ public class SiteController extends BaseController {
 	 * 主题包名
 	 */
 	protected String THEME = "site";
+	
+	protected int size = 10;
 
 }

@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.common.utils.GsonUtils;
+import com.common.utils.StringUtils;
 import com.lt.shop.dao.admin.entity.def.Goods;
 import com.lt.shop.service.site.SiteGoodsService;
 
@@ -28,9 +31,23 @@ public class IndexController extends SiteController {
 	 */
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String index(){
-		this.webpage = siteGoodsService.list(1, 10);
+		this.webpage = siteGoodsService.list(1, size);
 		request.setAttribute("webpage", webpage);
 		return THEME+"/index";
+	}
+	
+	/**
+	 * 分页商品列表（异步用）
+	 * @return
+	 */
+	@RequestMapping(value="/lgp",method = RequestMethod.GET,produces = "text/json;charset=UTF-8")
+	public String indexPage(){
+		String p = request.getParameter("p");
+		Integer pageNo = StringUtils.toInt(p);
+		pageNo=pageNo==null?1:pageNo;
+		this.webpage = siteGoodsService.list(pageNo, size);
+		request.setAttribute("webpage", webpage);
+		return THEME+"/ajaxlist";
 	}
 	
 	/**

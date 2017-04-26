@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.Constant;
+import com.common.utils.StringUtils;
 import com.lt.shop.dao.admin.entity.def.User;
 import com.lt.shop.service.site.SiteMemberOrderService;
 
@@ -45,9 +46,23 @@ public class MemberController extends SiteController {
 	 */
 	@RequestMapping(value="/order",method=RequestMethod.GET)
 	public String order(){
-		this.webpage = siteMemberOrderService.list(1, pageSize);
+		this.webpage = siteMemberOrderService.list(1, size);
 		request.setAttribute("webpage", webpage);
 		return THEME+"/member/order_list";
+	}
+	
+	/**
+	 * 订单分页列表（异步用）
+	 * @return
+	 */
+	@RequestMapping(value="/ajaxorder",method=RequestMethod.GET)
+	public String ajaxorder(){
+		String p = request.getParameter("p");
+		Integer pageNo = StringUtils.toInt(p);
+		pageNo=pageNo==null?1:pageNo;
+		this.webpage = siteMemberOrderService.list(pageNo, size);
+		request.setAttribute("webpage", webpage);
+		return THEME+"/member/order_list_ajax";
 	}
 	
 	/**

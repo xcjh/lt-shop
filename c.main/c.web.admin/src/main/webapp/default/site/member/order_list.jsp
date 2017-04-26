@@ -83,6 +83,35 @@
 		</footer>
 		</div>
 	</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var pageNo = ${webpage.pageNo};
+		var pageCount = ${webpage.pageCount};
+		var work=true;
+		$(window).scroll(function(){  
+			var srollPos = $(window).scrollTop(); 
+			if((parseFloat($(document).height())-parseFloat(300)) <= (parseFloat($(window).height()) + parseFloat(srollPos))) {
+				if(work){
+					data.list();
+					work=false;
+				}
+			}
+		});
+		var data = {
+				list:function(){
+					if(pageNo>=pageCount){
+						return;
+					}
+					pageNo ++;
+					$.get("ajaxorder/?p="+pageNo,function(data){
+						$(".orderlist").append(data);
+						work=true;
+					});
+					
+				}
+		};
 
+	});
+</script>
 </body>
 </html>
