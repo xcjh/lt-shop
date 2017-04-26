@@ -36,7 +36,7 @@ public class OrderService extends BaseService {
 	UserMapper userMapper;
 	
 	/**
-	 * 用户分页列表
+	 * 订单分页列表
 	 * @param pageNo
 	 * @param pageSize
 	 * @return

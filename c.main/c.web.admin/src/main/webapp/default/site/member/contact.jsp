@@ -23,17 +23,19 @@
 <body class="bg01">
 	 <div class="container">
             <div class="box_main">
-                <div class="user_top">
+                <div class="user_top bg2">
 				    <dl>
-					   <dt><img src="${user.imghead }"></dt>
+					    <dt><img src="${user.imghead }"></dt>
 					   <dd>${user.uname }</dd>
 					</dl>
 				</div>
-				<div class="user_list">
+				<div class="user_list contactlist">
 				    <ul>
-					   <li><a href="/m/order"><i style="color:#00BB9C" class="icon iconfont">&#xe65c;</i> 我的订单</a></li>
-					   <li><a href="/m/contact"><i style="color:#CFAA51" class="icon iconfont"></i> 联系我们</a></li>
-					   <li><a href="/m/protocol"><i style="color:#56ABE4" class="icon iconfont"></i> 用户协议</a></li>
+					   <li><i style="color:#00BB9C" class="icon iconfont">&#xe665;</i> 邮箱：</li>
+					   <li><i style="color:#10CD6E" class="icon iconfont">&#xe60a;</i> 电话：</li>
+					   <li><i style="color:#56ABE4" class="icon iconfont">&#xe680;</i> 地址：</li>
+					   <li><i style="color:#EB4F38" class="icon iconfont">&#xe661;</i> 微博：</li>
+					   <li><i style="color:#CFAA51" class="icon iconfont">&#xe695;</i> 微信：</li>
 					</ul>
 				</div>
             </div>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.site.impl.SiteMemberOrderMapper">
+	<select id="list" resultType="java.util.Map">
+		SELECT
+		o.id,
+		o.order_sn as orderSn,
+		o.order_status as orderStatus,
+		o.pay_status as payStatus,
+		o.deliver_status as deliverStatus,
+		o.amount,
+		o.freight,
+		o.receipt_name as receiptName,
+		o.receipt_phone as receiptPhone,
+		o.province,
+		o.city,
+		o.district,
+		o.address,
+		o.add_time as addTime,
+		o.amount_refund as amountRefund
+		FROM
+		lt_order o
+		where o.user_id=#{userId}
+		order by o.add_time desc
+		LIMIT #{start},#{num}
+
+	</select>
+	<select id="listTotal" resultType="java.lang.Integer">
+		SELECT
+		count(0)
+		FROM
+		lt_order o
+		where o.user_id=#{userId}
+	</select>
+	
+		<select id="listOrderItems" resultType="java.util.Map">
+		SELECT
+oi.id,oi.goods_id as goodsId,oi.num,oi.user_id as userId,oi.add_time as addTime,oi.order_id as orderId,oi.price as buyPrice,
+g.title,g.def_img as defImg,g.price_market as priceMarket
+from lt_order_item oi 
+LEFT JOIN lt_goods g on oi.goods_id=g.id
+where oi.order_id=#{orderId}
+	</select>
+
+
+</mapper>

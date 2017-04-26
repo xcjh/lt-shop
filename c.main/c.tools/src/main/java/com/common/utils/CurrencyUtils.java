@@ -91,6 +91,16 @@ public final class CurrencyUtils {
 		BigDecimal b2 = new BigDecimal(Double.toString(v2));
 		return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
+	
+	/**
+	 * 提供精确的小数位四舍五入处理(全站默认保留1位)
+	 * 
+	 * @param v 需要四舍五入的数字
+	 * @return 四舍五入后的结果
+	 */
+	public static double round(double v){
+		return round(v,1);
+	}
 
 	/**
 	 * 提供精确的小数位四舍五入处理。

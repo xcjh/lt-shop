@@ -34,6 +34,12 @@ public class SiteLoginController extends SiteController {
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(){
 		String furl = request.getParameter("furl");
+		if(StringUtils.isEmpty(furl)){
+			furl = request.getHeader("referer");
+			if(furl!=null && furl.indexOf("login")>0){
+				furl=null;
+			}
+		}
 		request.setAttribute("furl", furl);
 		return THEME+"/login";
 	}

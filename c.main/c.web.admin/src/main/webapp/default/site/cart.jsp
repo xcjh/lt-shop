@@ -24,7 +24,7 @@
 		<div class="box_main">
 
 			<div class="order_detailtips">
-				<span class="fl"><i style="color: #CFAA51" class="icon iconfont"></i> 您的清单</span> <span class="fr"> <a href="/"><i style="color: #CFAA51"
+				<span class="fl"><i style="color: #CFAA51" class="icon iconfont">&#xe65c;</i> 您的购物车清单</span> <span class="fr"> <a href="/"><i style="color: #CFAA51"
 						class="icon iconfont">&#xe699;</i> </a>
 				</span>
 			</div>
@@ -34,7 +34,7 @@
 						<div class="order_box">
 							<dl>
 								<dt>
-									<a href="/d/${item.goodsId }"><img src="${item.defImg }"></a>
+									<a href="/d/${item.goodsId }"><img src="/${item.defImg }"></a>
 								</dt>
 								<dd>
 									<h3>

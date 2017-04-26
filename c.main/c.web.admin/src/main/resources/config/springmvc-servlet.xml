@@ -54,6 +54,13 @@
 			<bean class="com.lt.shop.interceptor.AdminInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+		<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/m/*" />
+			<bean class="com.lt.shop.interceptor.MemberInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
