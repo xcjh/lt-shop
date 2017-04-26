@@ -267,3 +267,17 @@ create table lt_user_addr
    primary key (id)
 );
 
+-- ----------------------------
+-- Table structure for `lt_config`
+-- ----------------------------
+DROP TABLE IF EXISTS `lt_config`;
+CREATE TABLE `lt_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `weibo` varchar(50) DEFAULT NULL,
+  `weixin` varchar(50) DEFAULT NULL,
+  `xieyi` blob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
