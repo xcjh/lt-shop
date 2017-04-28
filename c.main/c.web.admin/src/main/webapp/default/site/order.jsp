@@ -50,13 +50,13 @@
 		<div class="container">
 			<div class="box_main">
 				<div class="order_detailtips">
-					<span class="fl"><i style="color: #CFAA51" class="icon iconfont"></i> 确认订单</span> <span class="fr"> <a href="/"><i style="color: #CFAA51"
+					<span class="fl"><a href="/cart"><i style="color: #CFAA51" class="icon iconfont">&#xe60e;</i></a> 确认订单</span> <span class="fr"> <a href="/"><i style="color: #CFAA51"
 							class="icon iconfont">&#xe699;</i> </a>
 					</span>
 				</div>
 				<div class="" style="background: #FFFFFF; margin-bottom: 10px;">
 					<div style="height: 38px; line-height: 38px; border-top: 1px solid #D4D4D4; border-bottom: 1px solid #D4D4D4; padding-left: 20px; color: #6E6E6E;">
-						<i style="color: #CFAA51" class="icon iconfont"></i>&nbsp;配送信息
+						<i style="color: #CFAA51" class="icon iconfont">&#xe604;</i>&nbsp;配送信息
 					</div>
 					<div class="receipt">
 						<dl>
@@ -76,25 +76,25 @@
 									</select><select id="cityId" name="cityId" style="width: 30%; height: 30px; border: 0px solid;">
 										<option value="235">成都市</option>
 									</select><select id="districtId" name="districtId" style="width: 40%; height: 30px; border: 0px solid;">
-										<option value="2040" <c:if test="${addr.districtId == \"2040\"}">selected</c:if>>锦江区</option>
-										<option value="2041" <c:if test="${addr.districtId == \"2041\"}">selected</c:if>>青羊区</option>
-										<option value="2042" <c:if test="${addr.districtId == \"2042\"}">selected</c:if>>金牛区</option>
-										<option value="2043" <c:if test="${addr.districtId == \"2043\"}">selected</c:if>>武侯区</option>
-										<option value="2044" <c:if test="${addr.districtId == \"2044\"}">selected</c:if>>成华区</option>
-										<option value="2045" <c:if test="${addr.districtId == \"2045\"}">selected</c:if>>龙泉驿区</option>
-										<option value="2046" <c:if test="${addr.districtId == \"2046\"}">selected</c:if>>青白江区</option>
-										<option value="2047" <c:if test="${addr.districtId == \"2047\"}">selected</c:if>>新都区</option>
-										<option value="2048" <c:if test="${addr.districtId == \"2048\"}">selected</c:if>>温江区</option>
-										<option value="2049" <c:if test="${addr.districtId == \"2049\"}">selected</c:if>>金堂县</option>
-										<option value="2050" <c:if test="${addr.districtId == \"2050\"}">selected</c:if>>双流县</option>
-										<option value="2051" <c:if test="${addr.districtId == \"2051\"}">selected</c:if>>郫县</option>
-										<option value="2052" <c:if test="${addr.districtId == \"2052\"}">selected</c:if>>大邑县</option>
-										<option value="2053" <c:if test="${addr.districtId == \"2053\"}">selected</c:if>>蒲江县</option>
-										<option value="2054" <c:if test="${addr.districtId == \"2054\"}">selected</c:if>>新津县</option>
-										<option value="2055" <c:if test="${addr.districtId == \"2055\"}">selected</c:if>>都江堰市</option>
-										<option value="2056" <c:if test="${addr.districtId == \"2056\"}">selected</c:if>>彭州市</option>
-										<option value="2057" <c:if test="${addr.districtId == \"2057\"}">selected</c:if>>邛崃市</option>
-										<option value="2058" <c:if test="${addr.districtId == \"2058\"}">selected</c:if>>崇州市</option>
+										<option value="2040" <c:if test="${addr.districtId == 2040}">selected</c:if>>锦江区</option>
+										<option value="2041" <c:if test="${addr.districtId == 2041}">selected</c:if>>青羊区</option>
+										<option value="2042" <c:if test="${addr.districtId == 2042}">selected</c:if>>金牛区</option>
+										<option value="2043" <c:if test="${addr.districtId == 2043}">selected</c:if>>武侯区</option>
+										<option value="2044" <c:if test="${addr.districtId == 2044}">selected</c:if>>成华区</option>
+										<option value="2045" <c:if test="${addr.districtId == 2045}">selected</c:if>>龙泉驿区</option>
+										<option value="2046" <c:if test="${addr.districtId == 2046}">selected</c:if>>青白江区</option>
+										<option value="2047" <c:if test="${addr.districtId == 2047}">selected</c:if>>新都区</option>
+										<option value="2048" <c:if test="${addr.districtId == 2048}">selected</c:if>>温江区</option>
+										<option value="2049" <c:if test="${addr.districtId == 2049}">selected</c:if>>金堂县</option>
+										<option value="2050" <c:if test="${addr.districtId == 2050}">selected</c:if>>双流县</option>
+										<option value="2051" <c:if test="${addr.districtId == 2051}">selected</c:if>>郫县</option>
+										<option value="2052" <c:if test="${addr.districtId == 2052}">selected</c:if>>大邑县</option>
+										<option value="2053" <c:if test="${addr.districtId == 2053}">selected</c:if>>蒲江县</option>
+										<option value="2054" <c:if test="${addr.districtId == 2054}">selected</c:if>>新津县</option>
+										<option value="2055" <c:if test="${addr.districtId == 2055}">selected</c:if>>都江堰市</option>
+										<option value="2056" <c:if test="${addr.districtId == 2056}">selected</c:if>>彭州市</option>
+										<option value="2057" <c:if test="${addr.districtId == 2057}">selected</c:if>>邛崃市</option>
+										<option value="2058" <c:if test="${addr.districtId == 2058}">selected</c:if>>崇州市</option>
 									</select>
 								</div>
 								<div style="border: 1px solid #b4b4b4; padding-left: 5px; padding-right: 5px;">
@@ -102,13 +102,13 @@
 								</div>
 							</dd>
 						</dl>
-						<div style="height: 38px; line-height: 38px; color: #DD5246;">注：试运行期间，送货范围仅限成都市范围，敬请见谅。</div>
+						<div style="height: 38px; line-height: 38px;font-size:11px; color: #DD5246;">注：试运行期间，送货范围仅限成都市范围，敬请见谅。</div>
 					</div>
 				</div>
 				<div class="combox" style="margin-bottom: 10px;">
 					<div class="orderlist">
 						<div style="height: 38px; line-height: 38px; border-top: 1px solid #D4D4D4; border-bottom: 1px solid #D4D4D4; padding-left: 20px; color: #6E6E6E;">
-							<i style="color: #CFAA51" class="icon iconfont"></i>&nbsp;商品列表
+							<i style="color: #CFAA51" class="icon iconfont">&#xe64f;</i>&nbsp;商品列表
 						</div>
 						<c:forEach var="item" items="${map.list }">
 							<div class="order_box">
@@ -116,7 +116,7 @@
 									<dt>
 										<img src="/${item.defImg }">
 									</dt>
-									<dd style="height: 58px;">
+									<dd style="height: 48px;">
 										<h3>${item.title }</h3>
 									</dd>
 									<dd>
@@ -138,7 +138,7 @@
 				</div>
 				<div class="" style="background: #FFFFFF; margin-bottom: 10px;">
 					<div style="height: 38px; line-height: 38px; border-top: 1px solid #D4D4D4; border-bottom: 1px solid #D4D4D4; padding-left: 20px; color: #6E6E6E;">
-						<i style="color: #CFAA51" class="icon iconfont"></i>&nbsp;配送方式
+						<i style="color: #CFAA51" class="icon iconfont">&#xe604;</i>&nbsp;配送方式
 						<div style="height: 38px; line-height: 38px; padding-right: 20px; float: right;">
 							送货上门：<span style="color: #C94E4E;">&yen; <fmt:formatNumber pattern="0.00" minFractionDigits='0' value="${map.freightTotal }"></fmt:formatNumber></span> <input
 								type="hidden" id="freightTotal" name="freightTotal" value="${map.freightTotal }" />
