@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.lt.shop.dao.admin.entity.def.CodeCity;
 import com.lt.shop.dao.admin.entity.def.CodeDistrict;
@@ -15,7 +15,7 @@ import com.lt.shop.dao.admin.impl.custom.CodeReadCityMapper;
 import com.lt.shop.dao.admin.impl.custom.CodeReadDistrictMapper;
 import com.lt.shop.dao.admin.impl.custom.CodeReadProvinceMapper;
 
-@Component
+@Service
 public class BaseCode {
 
 	@Autowired
