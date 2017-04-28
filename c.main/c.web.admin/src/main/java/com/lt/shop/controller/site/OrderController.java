@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.Constant;
 import com.lt.shop.dao.admin.entity.custom.UserAddrEntity;
+import com.lt.shop.dao.admin.entity.def.Order;
 import com.lt.shop.dao.admin.entity.def.User;
 import com.lt.shop.service.site.SiteCartService;
 import com.lt.shop.service.site.SiteOrderService;
@@ -64,9 +65,9 @@ public class OrderController extends SiteController {
 	@RequestMapping(value = "/order/save", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String add(String receiptName, String receiptPhone, Long provinceId, Long cityId, Long districtId,
 			String address, String[] good, BigDecimal amountTotal, BigDecimal freightTotal) {
-		int flag = siteOrderService.add(receiptName, receiptPhone, provinceId, cityId, districtId, address, good,
+		Order order = siteOrderService.add(receiptName, receiptPhone, provinceId, cityId, districtId, address, good,
 				amountTotal, freightTotal);
-		return resp(flag);
+		return resp(1, "", order);
 	}
 
 }

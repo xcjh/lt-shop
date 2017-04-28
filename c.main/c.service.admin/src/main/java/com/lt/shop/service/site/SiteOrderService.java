@@ -80,7 +80,7 @@ public class SiteOrderService extends BaseService {
 	 * @param num
 	 * @return
 	 */
-	public int add(String receiptName, String receiptPhone, Long provinceId, Long cityId, Long districtId,
+	public Order add(String receiptName, String receiptPhone, Long provinceId, Long cityId, Long districtId,
 			String address, String[] goods, BigDecimal amountTotal, BigDecimal freightTotal) {
 		User user = (User) contextService.getObject(Constant.SITE_LOGIN_USER);
 		Order order = getDefaultOrder();
@@ -88,7 +88,7 @@ public class SiteOrderService extends BaseService {
 		order.setAmount(amountTotal);
 		order.setFreight(freightTotal);
 		putAddr(order, user, receiptName, receiptPhone, provinceId, cityId, districtId, address);
-		Long orderId = siteOrderMapper.insert(order);
+		siteOrderMapper.insert(order);
 		if (goods != null && goods.length > 0) {
 			OrderItem oi = null;
 			int result = 0;
@@ -100,7 +100,7 @@ public class SiteOrderService extends BaseService {
 				oi.setGoodsId(new Long(items[1]));
 				oi.setNum(new Integer(items[2]));
 				oi.setPrice(new BigDecimal(items[3]));
-				oi.setOrderId(orderId);
+				oi.setOrderId(order.getId());
 				oi.setUserId(user.getId());
 				oi.setAddTime(new Date().getTime());
 				result = siteOrderItemMapper.insert(oi);
@@ -112,7 +112,32 @@ public class SiteOrderService extends BaseService {
 		} else {
 			// throw new Exception("order item is null.");
 		}
-		return 1; // ?
+		return order; // ?
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Order getOrder(Long id) {
+		return siteOrderMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * 
+	 * @param status 0已取消,1新订单,2已支付,3已发货,4已收货,5已完成
+	 * @param id
+	 */
+	public void updateOrderStatus(int status, Long id) {
+		siteOrderMapper.updateOrderStatus(status, id);
+	}
+	/**
+	 * 
+	 * @param status 1未付款，2已付款，3已退款
+	 * @param id
+	 */
+	public void updatePayStatus(int status, Long id) {
+		siteOrderMapper.updatePayStatus(status, id);
+	}
 }

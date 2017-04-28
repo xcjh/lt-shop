@@ -19,6 +19,12 @@ public class Constant {
 	public static String CONTEXTPATH = "";
 	public static String SITE_LOGIN_USER = "site_login";//前台用户登录保存变量
 	public static String ADMIN_LOGIN_USER = "admin_login";//后台用户登录保存变量
+	// weixin
+	public static String WEIXIN_APP_ID = "";
+	public static String WEIXIN_MCHID = "";
+	public static String WEIXIN_NOTIFY_URL = "";
+	
+	public static String WEIXIN_API_SECURITY_KEY = "";
 	
 	/**
 	 * 

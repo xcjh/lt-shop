@@ -175,7 +175,7 @@
 								time : 2, //2秒后自动关闭
 								end : function() {
 									layer.closeAll();
-									location.href = "../pay";
+									location.href = "../wx-" + d.data.id;
 								}
 							});
 						} else {
