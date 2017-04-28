@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.common.service.BaseService;
 import com.lt.shop.dao.admin.entity.custom.UserAddrEntity;
 import com.lt.shop.dao.site.impl.SiteUserAddrMapper;
+import com.lt.shop.service.BaseCode;
 
 /**
  * 用户地址管理<br>
@@ -47,9 +48,9 @@ public class SiteUserAddrService extends BaseService {
 		addr.setCityId(cityId);
 		addr.setDistrictId(districtId);
 		addr.setAddress(address);
-		// addr.setProvince();
-		// addr.setCity();
-		// addr.setDistrict();
+		addr.setProvince(BaseCode.getProvince(provinceId + "").getProvincename());
+		addr.setCity(BaseCode.getCity(cityId + "").getCityname());
+		addr.setDistrict(BaseCode.getDistrict(districtId + "").getDistrictname());
 		addr.setDefaultUsed(1);
 	}
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.shop.dao.admin.impl.custom.CodeReadCityMapper">
+	<resultMap id="BaseResultMap" type="com.lt.shop.dao.admin.entity.def.CodeCity">
+		<id column="CityID" jdbcType="BIGINT" property="cityid" />
+		<result column="CityName" jdbcType="VARCHAR" property="cityname" />
+		<result column="ZipCode" jdbcType="VARCHAR" property="zipcode" />
+		<result column="ProvinceID" jdbcType="BIGINT" property="provinceid" />
+		<result column="DateCreated" jdbcType="TIMESTAMP" property="datecreated" />
+		<result column="DateUpdated" jdbcType="TIMESTAMP" property="dateupdated" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CityID, CityName, ZipCode, ProvinceID, DateCreated, DateUpdated
+	</sql>
+	<select id="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from s_city
+	</select>
+</mapper>

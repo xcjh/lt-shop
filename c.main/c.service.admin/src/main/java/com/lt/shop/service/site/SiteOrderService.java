@@ -40,7 +40,7 @@ public class SiteOrderService extends BaseService {
 
 	@Autowired
 	SiteUserAddrMapper siteUserAddrMapper;
-	
+
 	@Autowired
 	SiteUserAddrService siteUserAddrService;
 
@@ -60,16 +60,16 @@ public class SiteOrderService extends BaseService {
 
 	private void putAddr(Order order, User user, String receiptName, String receiptPhone, Long provinceId, Long cityId,
 			Long districtId, String address) {
-		UserAddrEntity entity = siteUserAddrService.get(user.getId(), receiptName, receiptPhone, provinceId, cityId, districtId,
-				address);
-		order.setReceiptName(receiptName);
-		order.setReceiptPhone(receiptPhone);
-		order.setProvinceId(provinceId);
-		// order.setProvince(addr.getProvince());
-		order.setCityId(cityId);
-		// order.setCity(addr.getCity());
-		order.setDistrictId(districtId);
-		// order.setDistrict(addr.getDistrict());
+		UserAddrEntity entity = siteUserAddrService.get(user.getId(), receiptName, receiptPhone, provinceId, cityId,
+				districtId, address);
+		order.setReceiptName(entity.getReceiptName());
+		order.setReceiptPhone(entity.getReceiptPhone());
+		order.setProvinceId(entity.getProvinceId());
+		order.setProvince(entity.getProvince());
+		order.setCityId(entity.getCityId());
+		order.setCity(entity.getCity());
+		order.setDistrictId(entity.getDistrictId());
+		order.setDistrict(entity.getDistrict());
 		order.setAddress(address);
 	}
 
@@ -123,18 +123,21 @@ public class SiteOrderService extends BaseService {
 	public Order getOrder(Long id) {
 		return siteOrderMapper.selectByPrimaryKey(id);
 	}
-	
+
 	/**
 	 * 
-	 * @param status 0已取消,1新订单,2已支付,3已发货,4已收货,5已完成
+	 * @param status
+	 *            0已取消,1新订单,2已支付,3已发货,4已收货,5已完成
 	 * @param id
 	 */
 	public void updateOrderStatus(int status, Long id) {
 		siteOrderMapper.updateOrderStatus(status, id);
 	}
+
 	/**
 	 * 
-	 * @param status 1未付款，2已付款，3已退款
+	 * @param status
+	 *            1未付款，2已付款，3已退款
 	 * @param id
 	 */
 	public void updatePayStatus(int status, Long id) {

@@ -24,6 +24,7 @@
 	<context:component-scan base-package="com.lt.shop.controller" />
 	<context:component-scan base-package="com.lt.shop.controller" />
 	<context:component-scan base-package="com.lt.shop.service" />
+	<context:component-scan base-package="com.lt.shop.listener" />
 	<context:component-scan base-package="com.common.controller" />
 	<context:component-scan base-package="com.common.service" />
 
