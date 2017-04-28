@@ -56,6 +56,7 @@
 			</div>
 		</div>
 		<div class="btmline"></div>
+		<c:if test="${map.count gt 0 }">
 		<div class="order_footer">
 			<a class="order_fee"> <span class="fl" style="color: #999; padding-left: 10px; padding-top: 10px;">运费：&yen; <fmt:formatNumber pattern="0.00"
 						minFractionDigits='0' value="${map.freightTotal }"></fmt:formatNumber></span> <span class="fr error" style="padding-right: 10px; padding-top: 10px;">合计：&yen;
@@ -63,6 +64,7 @@
 			</span>
 			</a> <a class="order_footerbtn bg2 clearing_btn" href="javascript:void(0);">去结算</a>
 		</div>
+		</c:if>
 	</div>
 	</div>
 
@@ -140,7 +142,7 @@
 					type : 2
 				});
 				layer.open({
-					content : '正在生成订单……',
+					content : '加载中……',
 					skin : 'msg',
 					time : 1, //2秒后自动关闭
 					end : function() {
